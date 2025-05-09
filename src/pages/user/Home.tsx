@@ -22,10 +22,10 @@ const Home = () => {
         <ContainerScroll
         titleComponent={
             <>
-              <h1 className="text-4xl font-semibold text-black dark:text-white">
-                Unleash the power of <br />
-                <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
-                  Scroll Animations
+              <h1 className="text-2xl font-semibold text-black dark:text-white">
+                PORTAL ARSITEK MODERN <br />
+                <span className="text-4xl md:text-[4rem] font-bold mt-1 leading-none">
+                Platform arsitektur untuk klien, desainer, kontraktor, dan pemangku kepentingan - dirancang untuk semua orang yang terlibat dalam perencanaan.
                 </span>
               </h1>
             </>
