@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <p className="font-bold text-3xl text-center text-red-500">
-        Ini adalah website arsitek yang sedang dibangun oleh dendi, brilian, dan giga
+        Click on the Vite and React logos to learn more
       </p>
     </>
   )
