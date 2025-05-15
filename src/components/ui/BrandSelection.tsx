@@ -3,7 +3,7 @@ import React from 'react';
 
 const BrandSection: React.FC = () => {
   return (
-    <div className="flex flex-col items-center pt-25 px-4 w-full max-w-7xl mx-auto">
+    <div className="flex flex-col items-center pt-40 px-4 w-full max-w-7xl mx-auto">
       {/* Heading */}
       <span className="block w-full max-w-xl text-center mb-5 font-['Kumbh_Sans']">
         <p className="font-semibold text-lg text-gray-800 leading-7 mb-5">
@@ -12,7 +12,7 @@ const BrandSection: React.FC = () => {
       </span>
 
       {/* Logo Section */}
-      <div className="flex flex-wrap justify-center items-center w-full gap-x-24 gap-y-12 mb-10">
+      <div className="flex flex-wrap justify-center items-center w-full gap-x-24 gap-y-12">
         <div className="flex flex-wrap justify-between items-center gap-2 max-w-6xl w-full">
           {/* Brand Logos */}
           <span className="text-3xl font-bold text-gray-800 leading-tight">

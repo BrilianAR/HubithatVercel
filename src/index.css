@@ -49,9 +49,12 @@
 
 
 :root {
-  --bg-color: #15552f;
-  --button-color :#7ED957;
-  --button-second : #d1af34 ;
+  --bg-color: #163b34;
+  --button-color :#3d8361;
+  --button-second : #d6cda4 ;
+  /* --bg-color: #00B76F;
+  --button-color :#A0E44C;
+  --button-second : #FFD339 ; */
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

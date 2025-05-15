@@ -1,3 +1,4 @@
+// Combined Footer Component with AppStore section
 "use client";
 
 import React from "react";
@@ -9,11 +10,15 @@ import {
   Scale,
   Webhook,
   ArrowRight,
-
+  Twitter,
+  Instagram, 
+  Facebook, 
+  Youtube
 } from "lucide-react";
-import { Twitter, Instagram, Facebook, Youtube } from "lucide-react";
 
-import hubithat from "../assets/hubithat.png"
+import hubithat from "../assets/hubithat.png";
+import app from "../assets/app-store.png";
+import google from "../assets/google-play.png";
 
 interface SocialLink {
   name: string;
@@ -45,6 +50,7 @@ interface FooterProps extends React.HTMLAttributes<HTMLDivElement> {
   columns: FooterColumn[];
   copyright?: string;
   generateTag?: string;
+  showAppStoreLinks?: boolean;
 }
 
 const Footer: React.FC<FooterProps> = ({ 
@@ -53,16 +59,19 @@ const Footer: React.FC<FooterProps> = ({
   columns, 
   copyright, 
   generateTag,
+  showAppStoreLinks = false,
   className,
   ...props 
 }) => {
+  const currentYear = new Date().getFullYear();
+  
   return (
     <footer 
       className={`w-full bg-gray-100 pt-24 pb-2 ${className || ''}`}
       {...props}
     >
       <div className="max-w-screen-xl mx-auto px-4 lg:px-8">
-        {/* Hero Section (from first footer) */}
+        {/* Hero Section */}
         {brand.heroText && (
           <div className="w-full flex flex-col md:flex-row justify-between items-center gap-6 md:gap-24 pb-16 border-b border-gray-700">
             <div className="flex flex-col max-w-lg">
@@ -76,7 +85,7 @@ const Footer: React.FC<FooterProps> = ({
             {brand.callToAction && (
               <a 
                 href={brand.callToAction.href}
-                className="px-8 py-3 bg-[var(--button-color)]  text-white font-semibold rounded-full text-lg hover:bg-[var(--bg-color)] hover:bg-opacity-80 transition-all flex items-center"
+                className="px-8 py-3 bg-[var(--button-color)] text-white font-semibold rounded-full text-lg hover:bg-[var(--bg-color)] hover:bg-opacity-80 transition-all flex items-center"
               >
                 {brand.callToAction.text}
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -85,11 +94,10 @@ const Footer: React.FC<FooterProps> = ({
           </div>
         )}
 
-        {/* Navigation Section (from second footer) */}
+        {/* Navigation Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 mt-8">
           <div className="lg:col-span-4">
-            <img src={hubithat} alt="Hubithat" className="w-60 " />
-            {/* <a href="#" className="text-xl font-semibold">{brand.name}</a> */}
+            <img src={hubithat} alt="Hubithat" className="w-60" />
             {!brand.heroText && (
               <p className="text-sm text-foreground/60 mt-2">{brand.description}</p>
             )}
@@ -107,10 +115,10 @@ const Footer: React.FC<FooterProps> = ({
               ))}
             </div>
           </div>
-          <div className="grid grid-cols-4 mt-16 md:grid-cols-3 lg:col-span-8 lg:justify-items-end text-gray lg:mt-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:col-span-8 lg:justify-items-end text-gray lg:mt-0 mt-16 gap-8">
             {columns.map(({ title, links }) => (
-              <div key={title} className="last:mt-12 md:last:mt-0 text-[var(--bg-color)]">
-                <h3 className="text-sm font-semibold">{title}</h3>
+              <div key={title}>
+                <h3 className="text-sm font-semibold text-[var(--bg-color)]">{title}</h3>
                 <ul className="mt-4 space-y-2.5">
                   {links.map(({ name, Icon, href }) => (
                     <li key={name}>
@@ -126,23 +134,59 @@ const Footer: React.FC<FooterProps> = ({
           </div>
         </div>
 
-        {/* Copyright Section (combined) */}
-        <div className="mt-20 border-t pt-6 pb-8 text-xs flex flex-col md:flex-row justify-between items-center">
-          <p className="font-sans text-gray-700 opacity-80">
-            {copyright || `Copyright ${new Date().getFullYear()} ${brand.name}. All rights reserved.`}
-          </p>
-          {generateTag && (
-            <p className="font-sans text-gray-700 opacity-80 mt-2 md:mt-0">
-              {generateTag}
-            </p>
-          )}
-        </div>
+        {/* App Store Links Section */}
+        {showAppStoreLinks && (
+          <div className="mt-6 flex justify-between items-center border-t border-neutral-600 py-6">
+  {/* Copyright Section */}
+  <div className="text-xs">
+    <p className="font-sans text-gray-700 opacity-80">
+      {copyright || `Copyright ${currentYear} ${brand.name}. All rights reserved.`}
+    </p>
+    {generateTag && (
+      <p className="font-sans text-gray-700 opacity-80">
+        {generateTag}
+      </p>
+    )}
+  </div>
+
+  {/* App Download Section */}
+  <div className="flex gap-3">
+    <a 
+      href="https://apps.apple.com/app/hubithat-app/id1671474896" 
+      target="_blank" 
+      rel="noopener nofollow"
+    >
+      <img 
+        src={app} 
+        alt="Apple App Store Badge" 
+        width="162" 
+        height="48" 
+      />
+    </a>
+    <a 
+      href="https://play.google.com/store/apps/details?id=com.hubithat.mobile" 
+      target="_blank" 
+      rel="noopener nofollow"
+    >
+      <img 
+        src={google}
+        alt="Google Playstore Badge" 
+        width="162" 
+        height="48" 
+      />
+    </a>
+  </div>
+</div>
+
+        )}
+
+        
       </div>
     </footer>
   );
 };
 
-// Example usage
+// Example usage with the combined features
 const FooterDemo = () => {
   return (
     <Footer
@@ -152,7 +196,7 @@ const FooterDemo = () => {
         heroText: "Experience Green Roofs, Capsule Hotel Stays",
         callToAction: {
           text: "Book Now",
-          href: "#book"
+          href: "/product"
         }
       }}
       socialLinks={[
@@ -167,7 +211,6 @@ const FooterDemo = () => {
             { name: "Facebook", Icon: Facebook, href: "https://facebook.com/hubitat" },
             { name: "Youtube", Icon: Youtube, href: "https://youtube.com/hubitat" }
           ] },
-
         { title: "Services", links: [
             { name: "Rooftop Stays", Icon: Blocks, href: "#rooftop" },
             { name: "Pricing", Icon: CreditCard, href: "#pricing" },
@@ -181,6 +224,7 @@ const FooterDemo = () => {
       ]}
       copyright="Copyright 2025 HubiThat. All rights reserved."
       generateTag=""
+      showAppStoreLinks={true} // Enable the App Store links section
     />
   );
 };
