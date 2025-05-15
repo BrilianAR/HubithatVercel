@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react';
-import { Calendar, MapPin, Clock, Search, Users } from 'lucide-react';
+import { Calendar, MapPin, Clock, Users } from 'lucide-react';
 import logo from "../../assets/hubithat-logo.png";
 import { Link } from 'react-router-dom';
 
 // LocationCard Component
-const LocationCard = ({ location, rateType }) => {
+const LocationCard = ({ location, rateType } : any) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
+  const handleButtonClick = (e : any) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
   // Format price to IDR currency
-  const formatPrice = (price) => {
+  const formatPrice = (price: any) => {
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',
       currency: 'IDR',
@@ -39,11 +42,10 @@ const LocationCard = ({ location, rateType }) => {
   };
 
   return (
-    <Link to="/details-product" className="block">
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
         <div className="relative overflow-hidden h-64">
           <div className="relative w-full h-full">
-            {location.images.map((image, index) => (
+            {location.images.map((image : any, index : any) => (
               <img
                 key={index}
                 className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ${
@@ -55,7 +57,7 @@ const LocationCard = ({ location, rateType }) => {
             ))}
           </div>
           <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
-            {location.images.map((_, index) => (
+            {location.images.map((_ :any, index: any) => (
               <button
                 key={index}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
@@ -124,63 +126,64 @@ const LocationCard = ({ location, rateType }) => {
             {location.city}, {location.country}
           </div>
         </div>
-        <div className="p-5">
-          <h3 className="text-xl font-semibold text-[var(--bg-color)] mb-2">{location.name}</h3>
-          <p className="text-gray-600 mb-4">{location.description}</p>
-          <div className="border-t border-gray-100 pt-4">
-            <h4 className="text-sm font-medium text-gray-500 mb-2">NEARBY</h4>
-            <ul>
-              {location.nearbyAttractions.map((attraction, index) => (
-                <li key={index} className="flex items-center gap-2 mb-2">
-                  <div className="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-gray-600">
-                    {index === 0 ? (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-3 w-3"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-3 w-3"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    )}
+          <Link to="/details-product" className="block">
+              <div className="p-5">
+                <h3 className="text-xl font-semibold text-[var(--bg-color)] mb-2">{location.name}</h3>
+                <p className="text-gray-600 mb-4">{location.description}</p>
+                <div className="border-t border-gray-100 pt-4">
+                  <h4 className="text-sm font-medium text-gray-500 mb-2">NEARBY</h4>
+                  <ul>
+                    {location.nearbyAttractions.map((attraction : any, index : any) => (
+                      <li key={index} className="flex items-center gap-2 mb-2">
+                        <div className="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-gray-600">
+                          {index === 0 ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-3 w-3"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-3 w-3"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          )}
+                        </div>
+                        <p className="text-sm text-gray-700">{attraction}</p>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-auto pt-5">
+                    <section className="flex flex-col text-sm font-bold items-end px-4 pb-3">
+                      <div className="flex flex-wrap items-baseline gap-1 text-[var(--button-color)]">
+                        <div className="text-xs font-medium text-neutral-400">from</div>
+                        <div>IDR</div>
+                        <div className="font-black leading-none text-2xl">
+                          {formatPrice(getDisplayPrice())}
+                        </div>
+                        <div>/ {rateType}</div>
+                      </div>
+                    </section>
                   </div>
-                  <p className="text-sm text-gray-700">{attraction}</p>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-auto pt-5">
-              <section className="flex flex-col text-sm font-bold items-end px-4 pb-3">
-                <div className="flex flex-wrap items-baseline gap-1 text-[var(--button-color)]">
-                  <div className="text-xs font-medium text-neutral-400">from</div>
-                  <div>IDR</div>
-                  <div className="font-black leading-none text-2xl">
-                    {formatPrice(getDisplayPrice())}
-                  </div>
-                  <div>/ {rateType}</div>
                 </div>
-              </section>
-            </div>
-          </div>
-        </div>
+              </div>
+          </Link>
       </div>
-    </Link>
   );
 };
 
@@ -195,8 +198,8 @@ const CheckHubithat = ({
   setDuration,
   checkOutDate,
   setCheckOutDate,
-  selectedCity,
-  setSelectedCity,
+  // selectedCity,
+  // setSelectedCity,
   rateType,
   setRateType,
   priceRange,
@@ -205,18 +208,18 @@ const CheckHubithat = ({
   setGuestCount,
   sortBy,
   setSortBy,
-  onClearFilters,
-}) => {
+  // onClearFilters,
+}: any) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [showLocations, setShowLocations] = useState(false);
   const [showDurations, setShowDurations] = useState(false);
-  const [showCities, setShowCities] = useState(false);
+  // const [showCities, setShowCities] = useState(false);
   const [showGuests, setShowGuests] = useState(false);
   const [showSortOptions, setShowSortOptions] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
+  // const [isFormValid, setIsFormValid] = useState(false);
 
   const durationOptions = ['1 Month(s)', '2 Month(s)', '3 Month(s)', '6 Month(s)', '12 Month(s)', '24 Month(s)'];
-  const cities = ['All', ...new Set(locations.map((loc) => loc.city))];
+  // const cities = ['All', ...new Set(locations.map((loc) => loc.city))];
   const guestOptions = [1, 2, 3, 4, 5, '6+'];
   const sortOptions = [
     { value: 'price-asc', label: 'Price: Low to High' },
@@ -226,7 +229,7 @@ const CheckHubithat = ({
   ];
 
   // Format date for display
-  const formatDate = (date) => {
+  const formatDate = (date : any) => {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
@@ -242,17 +245,17 @@ const CheckHubithat = ({
 
   // Validate form
   useEffect(() => {
-    setIsFormValid(!!selectedLocation);
+    // setIsFormValid(!!selectedLocation);
   }, [selectedLocation]);
 
   // Handle duration change
-  const handleDurationChange = (newDuration) => {
+  const handleDurationChange = (newDuration : any) => {
     setDuration(newDuration);
     setShowDurations(false);
   };
 
   // Set check-in date
-  const setNewCheckInDate = (date) => {
+  const setNewCheckInDate = (date: any) => {
     setCheckInDate(date);
     setShowCalendar(false);
   };
@@ -322,7 +325,7 @@ const CheckHubithat = ({
             {showLocations && (
               <div className="absolute z-20 mt-1 w-full bg-white rounded-lg shadow-lg max-h-60 overflow-auto border border-gray-200">
                 <ul className="py-1">
-                  {locations.map((location) => (
+                  {locations.map((location: any) => (
                     <li
                       key={location.id}
                       className={`px-4 py-2 cursor-pointer ${
@@ -893,13 +896,24 @@ export default function ProductCards() {
     ];
   };
 
+  interface Location {
+  id: number;
+  name: string;
+  city: string;
+  country: string;
+  price: number;
+  maxGuests: number;
+  // properti lain sesuai data kamu
+}
+
+
   const locationData = generateLocationData();
 
   // State management
   const [visibleCount, setVisibleCount] = useState(6);
   const [selectedCity, setSelectedCity] = useState('All');
   const [rateType, setRateType] = useState('nightly');
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
   const [checkInDate, setCheckInDate] = useState(new Date());
   const [checkOutDate, setCheckOutDate] = useState(new Date(new Date().setMonth(new Date().getMonth() + 1)));
   const [duration, setDuration] = useState('1 Month(s)');

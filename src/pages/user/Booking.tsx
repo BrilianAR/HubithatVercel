@@ -1,15 +1,17 @@
 import { useState } from 'react';
-import { ArrowLeft, Check, Clock, CreditCard, User, MapPin, Phone, Mail, Calendar, Home, Users, ChevronRight } from  'lucide-react';
+import { ArrowLeft, Check, Clock, CreditCard, User, MapPin, Phone, Mail, Calendar, Home, Users, ChevronRight } from 'lucide-react';
 import Gopay from '../../assets/goopay.png';
 import OVO from '../../assets/ovo.png';
 import Dana from '../../assets/dana.png';
 
+// Define type for payment method
+type PaymentMethod = 'creditCard' | 'bankTransfer' | 'eWallet';
 
 // Main App Component
 export default function BookingApp() {
-  const [currentPage, setCurrentPage] = useState('orderDetails');
-  const [paymentMethod, setPaymentMethod] = useState('creditCard');
-  const [paymentStatus, setPaymentStatus] = useState('pending');
+  const [currentPage, setCurrentPage] = useState<'orderDetails' | 'payment' | 'paymentStatus' | 'complete'>('orderDetails');
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('creditCard');
+  // const [paymentStatus, setPaymentStatus] = useState<'pending' | 'completed'>('pending');
 
   const goToPayment = () => {
     setCurrentPage('payment');
@@ -17,10 +19,9 @@ export default function BookingApp() {
 
   const processPayment = () => {
     setCurrentPage('paymentStatus');
-    
     // Simulate payment processing
     setTimeout(() => {
-      setPaymentStatus('completed');
+      // setPaymentStatus('completed');
       setCurrentPage('complete');
     }, 3000);
   };
@@ -36,18 +37,18 @@ export default function BookingApp() {
   const startNewBooking = () => {
     setCurrentPage('orderDetails');
     setPaymentMethod('creditCard');
-    setPaymentStatus('pending');
+    // setPaymentStatus('pending');
   };
 
   return (
     <div className="min-h-screen bg-white max-w-7xl lg:px-8 px-2 m-auto pt-30 flex flex-col">
       <header className="bg-white py-4 flex justify-between items-center">
         <div className="flex items-center space-x-2">
-            <a href="/" className="text-lg text-[var(--bg-color)] font-semibold hover:text-[var(--button-color)] transition-colors">
+          <a href="/" className="text-lg text-[var(--bg-color)] font-semibold hover:text-[var(--button-color)] transition-colors">
             Home
-            </a>
-            <ChevronRight className="h-4 w-4 text-gray-400" />
-            <h1 className="text-2xl font-bold text-gray-800">Hubithat Booking</h1>
+          </a>
+          <ChevronRight className="h-4 w-4 text-gray-400" />
+          <h1 className="text-2xl font-bold text-gray-800">Hubithat Booking</h1>
         </div>
       </header>
 
@@ -78,16 +79,16 @@ export default function BookingApp() {
         )}
 
         {currentPage === 'payment' && (
-          <PaymentPage 
-            onBack={goBack} 
-            onPaymentMethodChange={setPaymentMethod} 
+          <PaymentPage
+            onBack={goBack}
+            onPaymentMethodChange={setPaymentMethod}
             paymentMethod={paymentMethod}
             onProcessPayment={processPayment}
           />
         )}
 
         {currentPage === 'paymentStatus' && (
-          <PaymentStatusPage status={paymentStatus} />
+          <PaymentStatusPage />
         )}
 
         {currentPage === 'complete' && (
@@ -99,11 +100,14 @@ export default function BookingApp() {
 }
 
 // Order Details Page
-function OrderDetailsPage({ onContinue }) {
+interface OrderDetailsPageProps {
+  onContinue: () => void;
+}
+
+function OrderDetailsPage({ onContinue }: OrderDetailsPageProps) {
   return (
     <div className="bg-white rounded-lg py-6">
       <h2 className="text-2xl font-bold mb-6">Order Details</h2>
-      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <div className="mb-6">
@@ -148,7 +152,7 @@ function OrderDetailsPage({ onContinue }) {
               <p className="text-gray-700">15 May 2025 <strong>12.00 WIB</strong></p>
             </div>
           </div>
-          
+
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 flex items-center">
               <Clock className="mr-2 text-[var(--bg-color)]" size={20} />
@@ -182,7 +186,7 @@ function OrderDetailsPage({ onContinue }) {
             </h3>
             <p className="text-gray-700">2 Adult, 1 Children</p>
           </div>
-          
+
           <div className="mt-8">
             <h3 className="text-lg font-semibold mb-3 flex items-center">
               <User className="mr-2 text-[var(--bg-color)]" size={20} />
@@ -207,7 +211,7 @@ function OrderDetailsPage({ onContinue }) {
           <div className="mb-4 md:mb-0">
             <p className="text-gray-600 text-sm">By proceeding, you agree to our Terms and Conditions</p>
           </div>
-          <button 
+          <button
             onClick={onContinue}
             className="bg-[var(--bg-color)] text-white py-3 px-6 rounded-lg hover:bg-[var(--button-color)] transition font-medium"
           >
@@ -220,23 +224,30 @@ function OrderDetailsPage({ onContinue }) {
 }
 
 // Payment Page
-function PaymentPage({ onBack, paymentMethod, onPaymentMethodChange, onProcessPayment }) {
+interface PaymentPageProps {
+  onBack: () => void;
+  paymentMethod: PaymentMethod;
+  onPaymentMethodChange: (method: PaymentMethod) => void;
+  onProcessPayment: () => void;
+}
+
+function PaymentPage({ onBack, paymentMethod, onPaymentMethodChange, onProcessPayment }: PaymentPageProps) {
   return (
-    <div className="bg-white rounded-lg  p-6">
+    <div className="bg-white rounded-lg p-6">
       <div className="flex items-center mb-6">
         <button onClick={onBack} className="mr-4">
           <ArrowLeft size={20} className="text-gray-600" />
         </button>
         <h2 className="text-2xl font-bold">Payment</h2>
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="md:col-span-2">
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-4">Select Payment Method</h3>
-            
+
             <div className="space-y-3">
-              <div 
+              <div
                 className={`border ${paymentMethod === 'creditCard' ? 'border-[var(--button-color)] bg-blue-50' : 'border-gray-200'} rounded-lg p-4 cursor-pointer flex items-center`}
                 onClick={() => onPaymentMethodChange('creditCard')}
               >
@@ -246,8 +257,8 @@ function PaymentPage({ onBack, paymentMethod, onPaymentMethodChange, onProcessPa
                 <CreditCard className="mr-3 text-gray-600" size={20} />
                 <span className="font-medium">Credit or Debit Card</span>
               </div>
-              
-              <div 
+
+              <div
                 className={`border ${paymentMethod === 'bankTransfer' ? 'border-[var(--button-color)] bg-blue-50' : 'border-gray-200'} rounded-lg p-4 cursor-pointer flex items-center`}
                 onClick={() => onPaymentMethodChange('bankTransfer')}
               >
@@ -260,8 +271,8 @@ function PaymentPage({ onBack, paymentMethod, onPaymentMethodChange, onProcessPa
                 </svg>
                 <span className="font-medium">Bank Transfer</span>
               </div>
-              
-              <div 
+
+              <div
                 className={`border ${paymentMethod === 'eWallet' ? 'border-[var(--button-color)] bg-blue-50' : 'border-gray-200'} rounded-lg p-4 cursor-pointer flex items-center`}
                 onClick={() => onPaymentMethodChange('eWallet')}
               >
@@ -276,7 +287,7 @@ function PaymentPage({ onBack, paymentMethod, onPaymentMethodChange, onProcessPa
               </div>
             </div>
           </div>
-          
+
           {paymentMethod === 'creditCard' && (
             <div className="mt-6">
               <h4 className="text-md font-semibold mb-4">Enter Card Details</h4>
@@ -302,7 +313,7 @@ function PaymentPage({ onBack, paymentMethod, onPaymentMethodChange, onProcessPa
               </div>
             </div>
           )}
-          
+
           {paymentMethod === 'bankTransfer' && (
             <div className="mt-6">
               <h4 className="text-md font-semibold mb-4">Bank Transfer Details</h4>
@@ -325,32 +336,32 @@ function PaymentPage({ onBack, paymentMethod, onPaymentMethodChange, onProcessPa
               </div>
             </div>
           )}
-          
+
           {paymentMethod === 'eWallet' && (
             <div className="mt-6">
               <h4 className="text-md font-semibold mb-4">Choose E-Wallet</h4>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div className="border border-gray-200 rounded-lg p-4 text-center cursor-pointer hover:border-[var(--button-color)]">
-                  <img src={Gopay} alt="gopay" className='w-34 m-auto mb-2'/>
+                  <img src={Gopay} alt="gopay" className="w-34 m-auto mb-2" />
                 </div>
                 <div className="border border-gray-200 rounded-lg p-4 text-center cursor-pointer hover:border-[var(--button-color)]">
-                  <img src={OVO} alt="ovo" className='w-30 m-auto mb-2 mt-4'/>
+                  <img src={OVO} alt="ovo" className="w-30 m-auto mb-2 mt-4" />
                 </div>
                 <div className="border border-gray-200 rounded-lg p-4 text-center cursor-pointer hover:border-[var(--button-color)]">
-                  <img src={Dana} alt="dana" className='w-28 m-auto mb-2 mt-8' />
+                  <img src={Dana} alt="dana" className="w-28 m-auto mb-2 mt-8" />
                 </div>
               </div>
             </div>
           )}
         </div>
-        
+
         <div>
           <div className="bg-gray-50 p-6 rounded-lg">
             <h3 className="text-lg font-semibold mb-4">Order Summary</h3>
-            
+
             <div className="space-y-3 mb-6">
               <div className="flex justify-between">
-                <span className="text-gray-600">Habithat 1  (1 Night)</span>
+                <span className="text-gray-600">Habithat 1 (1 Night)</span>
                 <span>IDR 500,000</span>
               </div>
               <div className="flex justify-between">
@@ -366,8 +377,8 @@ function PaymentPage({ onBack, paymentMethod, onPaymentMethodChange, onProcessPa
                 <span className="text-[var(--bg-color)]">IDR 577,500</span>
               </div>
             </div>
-            
-            <button 
+
+            <button
               onClick={onProcessPayment}
               className="w-full bg-[var(--bg-color)] text-white py-3 px-6 rounded-lg hover:bg-[var(--button-color)] transition font-medium"
             >
@@ -381,21 +392,21 @@ function PaymentPage({ onBack, paymentMethod, onPaymentMethodChange, onProcessPa
 }
 
 // Payment Status Page
-function PaymentStatusPage({ status }) {
+function PaymentStatusPage() {
   return (
     <div className="bg-white rounded-lg p-6 text-center">
       <div className="max-w-md mx-auto">
         <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full bg-[var(--button-color)]">
           <Clock className="text-white" size={28} />
         </div>
-        
+
         <h2 className="text-2xl font-bold mb-2">Processing Your Payment</h2>
         <p className="text-gray-600 mb-8">Please wait while we process your payment. This may take a few moments.</p>
-        
+
         <div className="relative h-2 bg-gray-200 rounded-full overflow-hidden mb-8">
           <div className="absolute top-0 left-0 h-full bg-[var(--bg-color)] w-1/2 animate-pulse"></div>
         </div>
-        
+
         <div className="flex items-center justify-center">
           <div className="w-3 h-3 rounded-full bg-[var(--button-second)] animate-pulse mr-1"></div>
           <div className="w-3 h-3 rounded-full bg-[var(--button-second)] animate-pulse mr-1"></div>
@@ -407,20 +418,24 @@ function PaymentStatusPage({ status }) {
 }
 
 // Complete Page
-function CompletePage({ onStartNewBooking }) {
+interface CompletePageProps {
+  onStartNewBooking: () => void;
+}
+
+function CompletePage({ onStartNewBooking }: CompletePageProps) {
   return (
     <div className="bg-white rounded-lg p-6 text-center">
       <div className="max-w-md mx-auto">
         <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full bg-green-100">
           <Check className="text-green-600" size={28} />
         </div>
-        
+
         <h2 className="text-2xl font-bold mb-2">Booking Confirmed!</h2>
         <p className="text-gray-600 mb-8">Your booking has been successfully confirmed. A confirmation email has been sent to ag4863017@gmail.com</p>
-        
+
         <div className="bg-gray-50 p-6 rounded-lg mb-8">
           <h3 className="font-semibold mb-4 text-left">Booking Details</h3>
-          
+
           <div className="text-left space-y-3">
             <div className="flex justify-between">
               <span className="text-gray-600">Booking ID</span>
@@ -448,18 +463,18 @@ function CompletePage({ onStartNewBooking }) {
             </div>
           </div>
         </div>
-        
+
         <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
-          <button 
+          <button
             className="bg-white border border-[var(--bg-color)] text-[var(--bg-color)] py-3 px-6 rounded-lg hover:bg-[var(--bg-color)] hover:text-white transition font-medium"
           >
             Download Receipt
           </button>
-          <button 
-            onClick={() => window.location.href = '/Home'}
+          <button
+            onClick={onStartNewBooking}
             className="bg-[var(--bg-color)] text-white py-3 px-6 rounded-lg hover:bg-[var(--button-color)] transition font-medium"
           >
-            Return to Home
+            Start New Booking
           </button>
         </div>
       </div>

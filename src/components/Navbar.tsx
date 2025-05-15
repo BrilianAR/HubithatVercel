@@ -5,7 +5,7 @@ import { cn } from "../libs/utils";
 import hubithat from "../assets/hubithat.png"
 import hubithatLogo from "../assets/hubithat-logo.png"
 
-import { Button } from "../components/LoginComponen/button";
+import { Button } from "../components/LoginComponen/Button";
 import { Checkbox } from "../components/LoginComponen/Checkbox";
 import {
   Dialog,

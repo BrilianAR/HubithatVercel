@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Send, Building, Mail, Phone, MapPin, CheckCircle } from 'lucide-react';
 
 // Contact Page Component
@@ -13,12 +13,12 @@ export default function ContactPage() {
   
   const [isSubmitted, setIsSubmitted] = useState(false);
   
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormState(prev => ({ ...prev, [name]: value }));
   };
   
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     // In a real app, you would handle the form submission here
     // For demo purposes, we'll just show a success message

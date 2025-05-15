@@ -1,5 +1,3 @@
-import React from 'react';
-
 const AboutUs = () => {
   return (
     <div className="bg-gradient-to-b from-white to-gray-50 py-12 pt-30 max-w-7xl m-auto px-4 sm:px-6 lg:px-8">

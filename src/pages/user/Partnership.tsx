@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { TrendingUp, Users, Building, ArrowRight, Home, Star, MapPin, Shield, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
 
 // Partnership Page Component
-export default function PartnershipPage({ setActivePage }) {
+export default function PartnershipPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+    const navigate = useNavigate();
   
   const images = [
     {
@@ -368,7 +371,7 @@ export default function PartnershipPage({ setActivePage }) {
             </div>
             <div className="mt-8 md:mt-0">
               <button
-                onClick={() => setActivePage('contact')}
+                onClick={() => navigate("/contact")}
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-[var(--bg-color)] bg-white hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[var(--bg-color)] focus:ring-white"
               >
                 Contact Us

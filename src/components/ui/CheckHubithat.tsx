@@ -288,10 +288,14 @@ export default function HorizontalHubithat() {
             }}
             onClick={() => {
               if (isFormValid) {
-                alert(`Booking details:\nLocation: ${selectedLocation.name}, ${selectedLocation.area}\nStart Date: ${formatDate(checkInDate)}\nEnd Date: ${formatDate(checkOutDate)}\nDuration: ${duration}`);
+                if (selectedLocation) {
+                  alert(`Booking details:\nLocation: ${selectedLocation.name ?? "Unknown"}, ${selectedLocation.area ?? "Unknown"}\nStart Date: ${formatDate(checkInDate)}\nEnd Date: ${formatDate(checkOutDate)}\nDuration: ${duration}`);
+                } else {
+                  alert("Location not selected!");
+                }
               }
-              
             }}
+
           >
             <Search className="h-5 w-5" />
             <span className="hidden md:inline">Search</span>

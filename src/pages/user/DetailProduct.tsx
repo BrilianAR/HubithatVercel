@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Calendar, Star, MapPin, Heart, ChevronRight, ChevronLeft, Users, Coffee, Wifi, Car, AirVent, Phone, Clock, LandPlot } from 'lucide-react';
+import { Calendar, Star, MapPin, ChevronRight, Users, Coffee, Wifi, Car, AirVent, Phone, Clock, LandPlot } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -132,7 +132,7 @@ export default function HotelDetailPage() {
     }
   ];
 
-  const openModal = (index) => {
+  const openModal = (index: any) => {
     setActiveSlide(index);
     setShowModal(true);
     // Prevent body scrolling when modal is open
@@ -153,7 +153,7 @@ export default function HotelDetailPage() {
     setActiveSlide((prev) => (prev === photos.length - 1 ? 0 : prev + 1));
   };
 
-  const goToSlide = (index) => {
+  const goToSlide = (index: any) => {
     setActiveSlide(index);
   };
 
