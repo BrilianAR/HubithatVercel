@@ -81,7 +81,7 @@ export default function HorizontalHubithat() {
   };
   
   return (
-    <div className="w-full max-w-7xl mx-auto rounded-lg shadow-lg mt-10 bg-white">
+    <div className="w-[350px] md:w-full max-w-full md:max-w-7xl mx-auto rounded-lg shadow-lg mt-5 md:mt-10 bg-white">
       <div className="px-10 py-4 md:py-3 bg-white">
         {/* Header with logo and greeting */}
         <div className="flex items-center justify-between mb-2">

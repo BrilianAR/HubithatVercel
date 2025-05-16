@@ -88,9 +88,9 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
       <ContainerScroll
         titleComponent={
           <>
-            <h1 className="text-4xl font-semibold text-black dark:text-white">
+            <h1 className="text-2xl md:text-4xl font-semibold text-black dark:text-white text-cente">
               Discover a New Way to Stay in the City <br />
-              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
+              <span className="text-2xl md:text-[6rem] font-bold mt-1 leading-tight md:leading-none">
                 Cozy stays on rooftops
               </span>
             </h1>
@@ -100,11 +100,9 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
         <img
           src={images[currentIndex]} // Gambar berdasarkan indeks saat ini
           alt="hero"
-          height={720}
-          width={1400}
-          className="mx-auto rounded-2xl object-cover h-full object-left-top"
+          className="mx-auto rounded-lg md:rounded-2xl pt-0 md:pl-10 md:w-[1320px] md:h-[620px] object-cover h-[200px] object-center md:object-left-top"
           draggable={false}
-        />
+      />
       </ContainerScroll>
       {/* <ModelViewer modelPath="/assets/3d.glb" /> */}
       <div className="flex flex-col items-center justify-center w-full max-w-[1980px] py-24 px-4 mx-auto bg-gray-100 gap-y-16">
