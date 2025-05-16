@@ -43,7 +43,7 @@ const AboutUs = () => {
             </p>
           </section>
 
-          <section className="bg-white rounded-2xl  py-8 transform hover:scale-[1.01] transition-transform duration-300">
+          <section className="bg-white rounded-2xl py-8 transform hover:scale-[1.01] transition-transform duration-300">
             <h2 className="text-xl font-bold text-gray-900 mb-4 border-b border-emerald-200 pb-3">
               Our Vision
             </h2>
@@ -128,7 +128,7 @@ const AboutUs = () => {
         </section>
 
         {/* Our Commitment Section */}
-        <section className="bg-emerald-50 rounded-2xl py-8 border border-emerald-100 mb-8">
+        <section className="bg-emerald-50 rounded-2xl p-8 border border-emerald-100 mb-8">
           <h2 className="text-2xl font-bold text-[var(--bg-color)] mb-4">
             Our Commitment
           </h2>
