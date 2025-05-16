@@ -14,7 +14,7 @@ const AboutUs = () => {
       {/* Main Content */}
       <div className="">
         {/* Discover Section */}
-        <section className="mb-16 bg-white rounded-2xl shadow-lg py-8 transform hover:scale-[1.01] transition-transform duration-300">
+        <section className="mb-16 bg-white rounded-2xl  py-8 transform hover:scale-[1.01] transition-transform duration-300">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 border-b border-emerald-200 pb-3">
             Discover Elevated Urban Sanctuaries
           </h2>
@@ -32,7 +32,7 @@ const AboutUs = () => {
 
         {/* Our Story and Vision in Two Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          <section className="bg-white rounded-2xl shadow-lg py-8 transform hover:scale-[1.01] transition-transform duration-300">
+          <section className="bg-white rounded-2xl  py-8 transform hover:scale-[1.01] transition-transform duration-300">
             <h2 className="text-xl font-bold text-gray-900 mb-4 border-b border-emerald-200 pb-3">
               Our Story
             </h2>
@@ -43,7 +43,7 @@ const AboutUs = () => {
             </p>
           </section>
 
-          <section className="bg-white rounded-2xl shadow-lg py-8 transform hover:scale-[1.01] transition-transform duration-300">
+          <section className="bg-white rounded-2xl  py-8 transform hover:scale-[1.01] transition-transform duration-300">
             <h2 className="text-xl font-bold text-gray-900 mb-4 border-b border-emerald-200 pb-3">
               Our Vision
             </h2>
@@ -71,7 +71,7 @@ const AboutUs = () => {
         </div>
 
         {/* Why Choose Us Section */}
-        <section className="mb-16 bg-white rounded-2xl shadow-lg py-8 transform hover:scale-[1.01] transition-transform duration-300">
+        <section className="mb-16 bg-white rounded-2xl  py-8 transform hover:scale-[1.01] transition-transform duration-300">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 border-b border-emerald-200 pb-3">
             Why Choose Hubithat?
           </h2>
