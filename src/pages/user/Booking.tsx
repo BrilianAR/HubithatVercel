@@ -42,13 +42,13 @@ export default function BookingApp() {
 
   return (
     <div className="min-h-screen bg-white max-w-7xl lg:px-8 px-2 m-auto pt-30 flex flex-col">
-      <header className="bg-white py-4 flex justify-between items-center">
+      <header className="bg-white py-4 px-4 flex justify-between items-center">
         <div className="flex items-center space-x-2">
-          <a href="/" className="text-lg text-[var(--bg-color)] font-semibold hover:text-[var(--button-color)] transition-colors">
+          <a href="/" className="lg:text-lg text-[var(--bg-color)] font-semibold hover:text-[var(--button-color)] transition-colors">
             Home
           </a>
           <ChevronRight className="h-4 w-4 text-gray-400" />
-          <h1 className="text-2xl font-bold text-gray-800">Hubithat Booking</h1>
+          <h1 className="lg:text-lg font-bold text-gray-800">Hubithat Booking</h1>
         </div>
       </header>
 
@@ -233,7 +233,7 @@ interface PaymentPageProps {
 
 function PaymentPage({ onBack, paymentMethod, onPaymentMethodChange, onProcessPayment }: PaymentPageProps) {
   return (
-    <div className="bg-white rounded-lg p-6">
+    <div className="bg-white rounded-lg p-2">
       <div className="flex items-center mb-6">
         <button onClick={onBack} className="mr-4">
           <ArrowLeft size={20} className="text-gray-600" />
@@ -246,7 +246,7 @@ function PaymentPage({ onBack, paymentMethod, onPaymentMethodChange, onProcessPa
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-4">Select Payment Method</h3>
 
-            <div className="space-y-3">
+            <div className="lg:space-y-3">
               <div
                 className={`border ${paymentMethod === 'creditCard' ? 'border-[var(--button-color)] bg-blue-50' : 'border-gray-200'} rounded-lg p-4 cursor-pointer flex items-center`}
                 onClick={() => onPaymentMethodChange('creditCard')}
@@ -356,7 +356,7 @@ function PaymentPage({ onBack, paymentMethod, onPaymentMethodChange, onProcessPa
         </div>
 
         <div>
-          <div className="bg-gray-50 p-6 rounded-lg">
+          <div className="bg-gray-50 py-6 lg:py-0 rounded-lg">
             <h3 className="text-lg font-semibold mb-4">Order Summary</h3>
 
             <div className="space-y-3 mb-6">

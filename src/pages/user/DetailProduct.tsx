@@ -1,17 +1,84 @@
 import { useState, useEffect } from 'react';
 import { Calendar, Star, MapPin, ChevronRight, Users, Coffee, Wifi, Car, AirVent, Phone, Clock, LandPlot } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
+import { ChevronLeft } from 'lucide-react';
 
 
 export default function HotelDetailPage() {
   const [showModal, setShowModal] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
-  const [selectedTab, setSelectedTab] = useState('overview');
+  // const [selectedTab, setSelectedTab] = useState('overview');
   const [activeReviewsTab, setActiveReviewsTab] = useState('all');
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
   const [guests, setGuests] = useState(1);
   const navigate = useNavigate();
+
+  const [selectedTab, setSelectedTab] = useState('overview');
+  const [isMobile, setIsMobile] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const scrollContainerRef = useRef(null);
+  
+  const tabs = [
+    { id: 'overview', label: 'Overview' },
+    { id: 'rooms', label: 'Rooms' },
+    { id: 'facilities', label: 'Facilities' },
+    { id: 'location', label: 'Location' },
+    { id: 'reviews', label: 'Reviews' }
+  ];
+  
+  // Check if the screen is mobile size
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkIfMobile);
+    };
+  }, []);
+  
+  // Handle scrolling of mobile tab container
+  const scroll = (direction) => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    
+    const scrollAmount = 100;
+    const newPosition = direction === 'left' 
+      ? Math.max(0, scrollPosition - scrollAmount)
+      : Math.min(container.scrollWidth - container.clientWidth, scrollPosition + scrollAmount);
+    
+    container.scrollTo({
+      left: newPosition,
+      behavior: 'smooth'
+    });
+    
+    setScrollPosition(newPosition);
+  };
+  
+  // Check if we can scroll in a specific direction
+  const canScroll = (direction) => {
+    const container = scrollContainerRef.current;
+    if (!container) return false;
+    
+    if (direction === 'left') {
+      return scrollPosition > 0;
+    } else {
+      return scrollPosition < container.scrollWidth - container.clientWidth;
+    }
+  };
+  
+  // Update scroll position when container scrolls
+  const handleScroll = () => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      setScrollPosition(container.scrollLeft);
+    }
+  };
 
   const photos = [
     {
@@ -374,38 +441,66 @@ export default function HotelDetailPage() {
           {/* Main content section */}
           <section className="bg-white rounded-lg  py-6 w-full md:w-8/12">
             <div className="border-b border-gray-200">
-              <nav className="flex -mb-px">
-                <button 
-                  onClick={() => setSelectedTab('overview')}
-                  className={`py-4 px-10 font-medium text-sm border-b-2 ${selectedTab === 'overview' ? 'border-[var(--bg-color)] text-[var(--bg-color)]' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
-                >
-                  Overview
-                </button>
-                <button 
-                  onClick={() => setSelectedTab('rooms')}
-                  className={`py-4 px-6 font-medium text-sm border-b-2 ${selectedTab === 'rooms' ? 'border-[var(--bg-color)] text-[var(--bg-color)]' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
-                >
-                  Rooms
-                </button>
-                <button 
-                  onClick={() => setSelectedTab('facilities')}
-                  className={`py-4 px-6 font-medium text-sm border-b-2 ${selectedTab === 'facilities' ? 'border-[var(--bg-color)] text-[var(--bg-color)]' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
-                >
-                  Facilities
-                </button>
-                <button 
-                  onClick={() => setSelectedTab('location')}
-                  className={`py-4 px-6 font-medium text-sm border-b-2 ${selectedTab === 'location' ? 'border-[var(--bg-color)] text-[var(--bg-color)]' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
-                >
-                  Location
-                </button>
-                <button 
-                  onClick={() => setSelectedTab('reviews')}
-                  className={`py-4 px-6 font-medium text-sm border-b-2 ${selectedTab === 'reviews' ? 'border-[var(--bg-color)] text-[var(--bg-color)]' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
-                >
-                  Reviews
-                </button>
-              </nav>
+                    <nav className={`hidden md:flex -mb-px border-b border-gray-200`}>
+                      {tabs.map((tab) => (
+                        <button 
+                          key={tab.id}
+                          onClick={() => setSelectedTab(tab.id)}
+                          className={`py-4 px-6 font-medium text-sm border-b-2 ${
+                            selectedTab === tab.id 
+                              ? 'border-[var(--bg-color)] text-[var(--bg-color)]' 
+                              : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                          }`}
+                        >
+                          {tab.label}
+                        </button>
+                      ))}
+                    </nav>
+                    
+                    {/* Mobile Navigation with Scroll Buttons */}
+                    <div className="relative md:hidden">
+                      {/* Left scroll button */}
+                      {canScroll('left') && (
+                        <button 
+                          onClick={() => scroll('left')}
+                          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-70 rounded-full p-1 shadow-md"
+                        >
+                          <ChevronLeft size={18} />
+                        </button>
+                      )}
+                      
+                      {/* Scrollable container */}
+                      <div 
+                        ref={scrollContainerRef}
+                        className="flex overflow-x-auto scrollbar-hide border-b border-gray-200"
+                        onScroll={handleScroll}
+                        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                      >
+                        {tabs.map((tab) => (
+                          <button 
+                            key={tab.id}
+                            onClick={() => setSelectedTab(tab.id)}
+                            className={`flex-shrink-0 py-3 px-4 font-medium text-sm border-b-2 whitespace-nowrap ${
+                              selectedTab === tab.id 
+                                ? 'border-[var(--bg-color)] text-[var(--bg-color)]' 
+                                : 'border-transparent text-gray-500'
+                            }`}
+                          >
+                            {tab.label}
+                          </button>
+                        ))}
+                      </div>
+                      
+                      {/* Right scroll button */}
+                      {canScroll('right') && (
+                        <button 
+                          onClick={() => scroll('right')}
+                          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-70 rounded-full p-1 shadow-md"
+                        >
+                          <ChevronRight size={18} />
+                        </button>
+                      )}
+                    </div>
             </div>
             
             {/* Tab Content */}

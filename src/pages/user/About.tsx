@@ -1,9 +1,9 @@
 const AboutUs = () => {
   return (
-    <div className="bg-gradient-to-b from-white to-white py-12 pt-30 max-w-7xl m-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-gradient-to-b from-white to-white py-12 pt-30 max-w-7xl m-auto px-6 sm:px-6 lg:px-8">
       {/* Hero Section */}
-      <div className="max-w-7xl mx-auto text-center mb-16">
-        <h1 className="text-3xl font-extrabold text-gray-900 mb-6">
+      <div className="max-w-7xl mx-auto lg:text-center mb-16">
+        <h1 className="text-center text-3xl font-extrabold text-gray-900 mb-6">
           About <span className="text-[var(--bg-color)]">Hubithat</span>
         </h1>
         <p className="max-w-2xl mx-auto text-xl text-gray-600">
