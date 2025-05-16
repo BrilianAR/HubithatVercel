@@ -82,6 +82,9 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
       <HeroSection/>
       <CheckHubithat/>
       <BrandSection/>
+      {/* <div className="flex justify-center items-center py-16">
+        <ModelViewer modelPath="/src/assets/3d.glb" />
+      </div> */}
       <ContainerScroll
         titleComponent={
           <>
@@ -328,7 +331,7 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
           <img 
             src={map}
             alt="Urban getaway" 
-            className="w-full h-full max-w-sm min-h-[500px] -mt-12 rounded-t-lg object-cover"
+            className="w-full h-full max-w-sm min-h-[400px] my-10 rounded-lg object-cover"
           />
         </div>
       </div>

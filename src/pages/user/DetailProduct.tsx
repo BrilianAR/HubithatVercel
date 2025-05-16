@@ -266,9 +266,9 @@ export default function HotelDetailPage() {
         </div>
       )}
 
-    <div className="bg-white min-h-screen mx-auto max-w-7xl pt-30 px-4 sm:px-6 lg:px-8">
+    <div className="bg-white-50 min-h-screen mx-auto max-w-7xl pt-30 px-4 sm:px-6 lg:px-8">
       {/* Header and Navigation */}
-      <header className="bg-white">
+      <header className="bg-white ">
         <nav className=" py-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <a href="/" className="text-[var(--bg-color)] hover:text-[var(--button-color)] font-semibold">
@@ -370,7 +370,7 @@ export default function HotelDetailPage() {
         </div>
 
         {/* Tabs Navigation */}
-        <div className="bg-white rounded-lg  flex flex-col md:flex-row gap-6 mb-6">
+        <div className="bg-white rounded-lg flex flex-col md:flex-row gap-6 mb-6">
           {/* Main content section */}
           <section className="bg-white rounded-lg  py-6 w-full md:w-8/12">
             <div className="border-b border-gray-200">
@@ -907,7 +907,7 @@ export default function HotelDetailPage() {
           {/* Booking Card - Sticky on scroll */}
           <div className="w-full md:w-4/12 relative">
             <section 
-              className={`bg-white rounded-lg  py-6 w-full ${
+              className={`bg-white rounded-lg w-full ${
                 isSticky ? 'md:sticky md:top-6 transition-all duration-300 ease-in-out transform translate-y-0' : ''
               }`}
             >
