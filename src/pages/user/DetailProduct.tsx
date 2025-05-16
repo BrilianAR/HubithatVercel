@@ -266,9 +266,9 @@ export default function HotelDetailPage() {
         </div>
       )}
 
-    <div className="bg-gray-50 min-h-screen mx-auto max-w-7xl pt-30 px-4 sm:px-6 lg:px-8">
+    <div className="bg-white-50 min-h-screen mx-auto max-w-7xl pt-30 px-4 sm:px-6 lg:px-8">
       {/* Header and Navigation */}
-      <header className="bg-white shadow-sm">
+      <header className="bg-white ">
         <nav className=" py-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <a href="/" className="text-[var(--bg-color)] hover:text-[var(--button-color)] font-semibold">
@@ -287,7 +287,7 @@ export default function HotelDetailPage() {
       {/* Main Content */}
       <main className="  py-2">
         {/* Hotel Title Section */}
-        <section className="bg-white rounded-lg shadow-sm py-6 mb-6">
+        <section className="bg-white rounded-lg py-6 mb-6">
           <div className="flex flex-col md:flex-row justify-between">
             <div>
               <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Hubithat Alun-Alun, Bandung</h1>
@@ -321,7 +321,7 @@ export default function HotelDetailPage() {
         {/* Gallery Section */}
         <div className="flex flex-col md:flex-row gap-6 mb-6">
           {/* Gallery */}
-          <section className="bg-white rounded-lg shadow-sm py-6 w-full">
+          <section className="bg-white rounded-lg py-6 w-full">
             <div className="flex justify-between gap-4">
               {/* Main large image */}
               <figure className="w-full md:basis-3/4 cursor-pointer overflow-hidden rounded-xl" onClick={() => openModal(0)}>
@@ -370,7 +370,7 @@ export default function HotelDetailPage() {
         </div>
 
         {/* Tabs Navigation */}
-        <div className="bg-white rounded-lg shadow-sm flex flex-col md:flex-row gap-6 mb-6">
+        <div className="bg-white rounded-lg flex flex-col md:flex-row gap-6 mb-6">
           {/* Main content section */}
           <section className="bg-white rounded-lg shadow-sm py-6 w-full md:w-8/12">
             <div className="border-b border-gray-200">
@@ -907,7 +907,7 @@ export default function HotelDetailPage() {
           {/* Booking Card - Sticky on scroll */}
           <div className="w-full md:w-4/12 relative">
             <section 
-              className={`bg-white rounded-lg shadow-sm py-6 w-full ${
+              className={`bg-white rounded-lg w-full ${
                 isSticky ? 'md:sticky md:top-6 transition-all duration-300 ease-in-out transform translate-y-0' : ''
               }`}
             >
