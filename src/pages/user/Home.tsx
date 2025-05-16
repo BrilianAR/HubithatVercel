@@ -312,13 +312,25 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
 
       <div className="flex flex-col items-center py-24">
         <div className="flex flex-col md:flex-row gap-8 md:gap-24 p-0 px-6 md:px-12 rounded-3xl bg-[#f5f5f5] max-w-7xl">
-          <div className="flex flex-col justify-center items-stretch py-6 md:py-12 max-w-full md:max-w-lg">
+          <div className="flex flex-col justify-center items-stretch py-6 md:py-12 max-w-full md:max-w-lg md:order-1">
+            {/* Text section - remains at the top on mobile */}
             <h1 className="font-['Kumbh_Sans'] text-3xl md:text-5xl font-bold text-[#333] leading-[40px] md:leading-[60px] pb-5">
               Ready for an Elevated Escape?
             </h1>
             <p className="font-['Kumbh_Sans'] text-base md:text-lg font-light text-[#333] leading-6 md:leading-7 pb-5">
               Discover a unique urban getaway. Experience comfort, sustainability, and breathtaking views. Book your HubiThat stay today!
             </p>
+            
+            {/* Image inserted between text and buttons on mobile only */}
+            <div className="block md:hidden w-full my-4">
+              <img
+                src={map}
+                alt="Urban getaway"
+                className="w-full h-auto rounded-lg object-cover min-h-[200px]"
+              />
+            </div>
+            
+            {/* Buttons section - now below the image on mobile */}
             <div className="flex flex-col md:flex-row gap-2 pt-5 md:pt-7">
               <Button>
                 Book Now
@@ -328,11 +340,15 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
               </Button>
             </div>
           </div>
-          <img
-            src={map}
-            alt="Urban getaway"
-            className="w-full h-auto max-w-full lg:py-8 md:max-w-sm min-h-[200px] md:min-h-[400px] rounded-lg object-cover"
-          />
+          
+          {/* Desktop image - hidden on mobile */}
+          <div className="hidden md:block md:order-2">
+            <img
+              src={map}
+              alt="Urban getaway"
+              className="w-full h-auto max-w-full lg:py-8 md:max-w-sm min-h-[400px] rounded-lg object-cover"
+            />
+          </div>
         </div>
       </div>
 

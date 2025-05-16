@@ -49,15 +49,16 @@ const TierCard: React.FC<TierProps> = ({ type, averagePrice, description }) => {
 
   return (
     <motion.div
-      className="flex flex-col p-6 rounded-lg mx-2 flex-1"
+      className="flex flex-col p-6 rounded-lg mx-2 flex-1 my-2 md:my-0"
       style={{
         backgroundColor: styles?.background,
-        borderLeft: type === 'basics' ? 'none' : '1px solid rgba(255,255,255,0.1)',
+        borderLeft: type === 'basics' ? 'none' : (window.innerWidth > 768 ? '1px solid rgba(255,255,255,0.1)' : 'none'),
+        borderTop: type !== 'basics' && window.innerWidth <= 768 ? '1px solid rgba(255,255,255,0.1)' : 'none',
       }}
-      initial={{ opacity: 0, x: 100 }} // Awal: Transparan dan bergeser dari kanan
-      whileInView={{ opacity: 1, x: 0 }} // Akhir: Muncul di posisi semula
-      viewport={{ once: true, amount: 0.2 }} // Animasi hanya terjadi sekali saat 20% elemen terlihat
-      transition={{ duration: 0.8, ease: 'easeOut' }} // Durasi dan jenis transisi
+      initial={{ opacity: 0, x: 100 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
     >
       <h3 className="mb-4">
         <span
@@ -96,18 +97,33 @@ const TierCard: React.FC<TierProps> = ({ type, averagePrice, description }) => {
 };
 
 const PricingTiers: React.FC = () => {
+  // Effect to handle border styling on resize
+  React.useEffect(() => {
+    const handleResize = () => {
+      // Force a re-render when window is resized
+      // This ensures the borders are correctly applied based on screen size
+      setState(prevState => !prevState);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
+  // Simple state to force re-render on resize
+  const [state, setState] = React.useState(false);
+
   return (
-    <section className="relative py-16 mb-30 mt-10" style={{ backgroundColor: colors.background1 }}>
-      <div className="container mx-auto max-w-7xl px-10">
+    <section className="relative py-10 md:py-16 mb-16 md:mb-30 mt-6 md:mt-10" style={{ backgroundColor: colors.background1 }}>
+      <div className="container mx-auto max-w-7xl px-4 md:px-10">
         <div className="flex flex-col md:flex-row items-center">
           <motion.div
-            className="w-full md:w-1/4 mb-8 md:mb-0"
-            initial={{ opacity: 0, x: -100 }} // Awal: Transparan dan bergeser dari kiri
-            whileInView={{ opacity: 1, x: 0 }} // Akhir: Muncul di posisi semula
-            viewport={{ once: true, amount: 0.2 }} // Animasi hanya terjadi sekali saat 20% elemen terlihat
-            transition={{ duration: 0.8, ease: 'easeOut' }} // Durasi dan jenis transisi
+            className="w-full md:w-1/4 mb-8 md:mb-0 text-center md:text-left"
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
           >
-            <h2 className="text-6xl font-bold text-white">
+            <h2 className="text-4xl md:text-6xl font-bold text-white">
               <span className="font-light block mb-2">with great options</span>
               for every budget
             </h2>
