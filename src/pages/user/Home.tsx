@@ -311,15 +311,15 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
 
 
       <div className="flex flex-col items-center py-24">
-        <div className="flex flex-row gap-24 p-0 px-12 rounded-3xl bg-[#f5f5f5] max-w-7xl">
-          <div className="flex flex-col justify-center items-stretch py-12 max-w-lg">
-            <h1 className="font-['Kumbh_Sans'] text-5xl font-bold text-[#333] leading-[60px] pb-5">
+        <div className="flex flex-col md:flex-row gap-8 md:gap-24 p-0 px-6 md:px-12 rounded-3xl bg-[#f5f5f5] max-w-7xl">
+          <div className="flex flex-col justify-center items-stretch py-6 md:py-12 max-w-full md:max-w-lg">
+            <h1 className="font-['Kumbh_Sans'] text-3xl md:text-5xl font-bold text-[#333] leading-[40px] md:leading-[60px] pb-5">
               Ready for an Elevated Escape?
             </h1>
-            <p className="font-['Kumbh_Sans'] text-lg font-light text-[#333] leading-7 pb-5">
+            <p className="font-['Kumbh_Sans'] text-base md:text-lg font-light text-[#333] leading-6 md:leading-7 pb-5">
               Discover a unique urban getaway. Experience comfort, sustainability, and breathtaking views. Book your HubiThat stay today!
             </p>
-            <div className="flex flex-row gap-2 pt-7">
+            <div className="flex flex-col md:flex-row gap-2 pt-5 md:pt-7">
               <Button>
                 Book Now
               </Button>
@@ -328,10 +328,10 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
               </Button>
             </div>
           </div>
-          <img 
+          <img
             src={map}
-            alt="Urban getaway" 
-            className="w-full h-full max-w-sm min-h-[400px] my-10 rounded-lg object-cover"
+            alt="Urban getaway"
+            className="w-full h-auto max-w-full lg:py-8 md:max-w-sm min-h-[200px] md:min-h-[400px] rounded-lg object-cover"
           />
         </div>
       </div>
