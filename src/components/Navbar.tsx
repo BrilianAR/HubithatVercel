@@ -67,13 +67,13 @@ const Navbar = () => {
   return (
     <header>
       <nav className={cn(
-        "fixed z-20 w-full mt-3 px-4 transition-transform duration-300",
+        "fixed z-20 w-full md:mt-3 px-4 transition-transform duration-300",
         visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
       )}>
         <div
           className={cn(
             "mx-auto max-w-7xl transition-all duration-400",
-            isScrolled ? (menuOpen ? "px-5" : "px-5 lg:px-8") : "px-0", // Atur padding berdasarkan scroll dan menu
+            isScrolled ? (menuOpen ? "px-5 mt-3" : "mt-3 px-5 lg:px-8") : "px-0", // Atur padding berdasarkan scroll dan menu
             isScrolled ? "bg-background/30 rounded-2xl border backdrop-blur-lg" : "",
             textColor // Apply dynamic text color
           )}
@@ -82,7 +82,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between py-4 lg:px-0">
             {/* Logo */}
             <Link to="/" className="no-underline">
-              <img src={hubithat} alt="Hubithat" className="w-40" />
+              <img src={hubithat} alt="Hubithat" className="w-25 md:w-36 lg:w-40" />
             </Link>
 
             {/* Mobile Menu Button */}

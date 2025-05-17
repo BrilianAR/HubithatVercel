@@ -40,7 +40,7 @@ const LifestyleMatchSection = () => {
       viewport={{ once: true, amount: 0.2 }} // Animasi hanya terjadi sekali saat 20% elemen terlihat
       transition={{ duration: 0.8, ease: "easeOut" }} // Durasi dan jenis transisi
     >
-      <div className="container mx-auto max-w-7xl mt-20 mb-10 px-4 md:px-10">
+      <div className="container mx-auto max-w-7xl mt-10 mb-10 px-4 md:px-10">
         {/* Order berbeda antara mobile dan desktop */}
         <div className="flex flex-col items-center">
           {/* Header text - tampil pertama di mobile, kedua di desktop */}
