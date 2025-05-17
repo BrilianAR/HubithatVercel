@@ -51,7 +51,7 @@ const LifestyleMatchSection = () => {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
-            <h2 className="text-center md:text-right">
+            <h2 className="text-left md:text-right">
               <span className="block text-4xl md:text-5xl font-thin" style={{ color: "#d6cda4" }}>
                 the right
               </span>
@@ -78,7 +78,7 @@ const LifestyleMatchSection = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               {roomTypes.map((room, index) => (
-                <div key={index} className="w-40 sm:w-48 h-58">
+                <div key={index} className="w-42 sm:w-48 h-58">
                   <div
                     className="h-full rounded-lg p-4 sm:p-6 shadow-sm border-t-4"
                     style={{ backgroundColor: "#d6cda4", borderColor: "#3d8361" }}

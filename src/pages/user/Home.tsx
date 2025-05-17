@@ -26,43 +26,16 @@ import Produc from "../../components/ui/Produc";
 import PricingTiers from '../../components/ui/Pricing';
 // import ModelViewer from "../../components/ModelViewer";
 import { ContainerScroll } from "../../components/ui/container-scroll-animation";
+import Test from "../../components/ui/Goals";
 
 interface HubiThatHeroProps {
   // You can add props here if needed
 }
 
-import { Rocket, Heart, Lock, Check } from "lucide-react";
+import { Check } from "lucide-react";
 
-import type { ReactNode } from "react";
 import HeroSection from "../../components/ui/Herosection";
 
-interface FeatureCardProps {
-  icon: ReactNode;
-  title: string;
-  description: string;
-  darkBg?: boolean;
-}
-
-const FeatureCard: React.FC<FeatureCardProps> = ({ 
-  icon, 
-  title, 
-  description, 
-  darkBg = true 
-}) => {
-  return (
-    <div className={`flex flex-col justify-start w-full max-w-[300px] px-8 py-20 ${darkBg ? "bg-[var(--bg-color)] text-white" : "bg-[var(--button-second)] text-black"}`}>
-      <span className="text-4xl pb-8">
-        {icon}
-      </span>
-      <span className="font-['Kumbh_Sans'] text-2xl font-medium py-2.5 text-left">
-        <p>{title}</p>
-      </span>
-      <span className="font-['Kumbh_Sans'] text-base font-light leading-[26px] pb-2.5 text-left">
-        <p>{description}</p>
-      </span>
-    </div>
-  );
-};
 
 
 const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
@@ -105,7 +78,7 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
       />
       </ContainerScroll>
       {/* <ModelViewer modelPath="/assets/3d.glb" /> */}
-      <div className="flex flex-col items-center justify-center w-full max-w-[1980px] py-24 px-4 mx-auto bg-gray-100 gap-y-16">
+      <div className="flex flex-col items-center justify-center w-full max-w-[1980px] py-6 lg:py-24 px-4 mx-auto bg-gray-100 gap-y-5 lg:gap-y-16">
         <motion.div
           className="flex flex-wrap justify-between w-full max-w-[1199px] gap-x-24 gap-y-5"
           initial={{ opacity: 0, y: 50 }} // Awal: Transparan dan bergeser sedikit ke bawah
@@ -113,29 +86,30 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
           viewport={{ once: true, amount: 0.2 }} // Animasi hanya terjadi sekali saat 20% elemen terlihat
           transition={{ duration: 0.6, ease: "easeOut" }} // Durasi lebih cepat
         >
-          <span className="block w-full max-w-[300px] mt-3 font-['Kumbh_Sans'] text-xl text-gray-800 leading-[30px]">
+          <span className="block w-full max-w-[300px] mt-3 font-['Kumbh_Sans'] text-base lg:text-xl text-gray-800 leading-[30px]">
             <p>Experience the future of urban hospitality with HubiThat's innovative rooftop sanctuaries.</p>
           </span>
-          <span className="block w-full max-w-[800px] font-['Kumbh_Sans'] text-5xl font-medium text-gray-800 leading-[65px]">
+          <span className="block w-full max-w-[800px] font-['Kumbh_Sans'] text-3xl lg:text-5xl font-medium text-gray-800 lg:leading-[65px]">
             <p>HubiThat: Redefining Urban Living with Roof Forest built for Megapolitans to recharge the soul and find calmness ASAP</p>
           </span>
         </motion.div>
+        
 
         <motion.div
-          className="flex flex-wrap w-full max-w-[1200px] gap-x-24 gap-y-8"
+          className="flex flex-wrap w-full max-w-[1200px] lg:gap-x-24 gap-x-4 lg:gap-y-8"
           initial={{ opacity: 0, y: 50 }} // Awal: Transparan dan bergeser sedikit ke bawah
           whileInView={{ opacity: 1, y: 0 }} // Akhir: Muncul di posisi semula
           viewport={{ once: true, amount: 0.2 }} // Animasi hanya terjadi sekali saat 20% elemen terlihat
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }} // Tambahkan delay untuk animasi bertahap
         >
-          <span className="block w-full max-w-[550px] h-[370px]">
+          <span className="block w-full max-w-[170px] h-[100px] lg:max-w-[550px] lg:h-[370px]">
             <img
               src={image1}
               alt="Rooftop Capsule Hotel"
               className="w-full h-full object-cover rounded-lg"
             />
           </span>
-          <span className="block w-full max-w-[550px] h-[370px]">
+          <span className="block w-full max-w-[170px] h-[100px] lg:max-w-[550px] lg:h-[370px]">
             <img
               src={image2}
               alt="Green Space"
@@ -145,61 +119,7 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
         </motion.div>
       </div>
 
-
-      <div className="flex flex-col items-center w-full max-w-[1232px] py-24 px-4 mx-auto gap-y-5">
-        <motion.span
-          className="block w-full max-w-[550px] text-center"
-          initial={{ opacity: 0, y: 50 }} // Awal: Transparan dan bergeser ke bawah
-          whileInView={{ opacity: 1, y: 0 }} // Akhir: Muncul di posisi semula
-          viewport={{ once: true, amount: 0.2 }} // Animasi hanya terjadi sekali saat 20% elemen terlihat
-          transition={{ duration: 0.8, ease: "easeOut" }} // Durasi dan jenis transisi
-        >
-          <p className="font-['Kumbh_Sans'] text-4xl font-bold text-gray-800 leading-[50px]">
-            Discover Elevated Urban Sanctuaries
-          </p>
-        </motion.span>
-
-        <motion.span
-          className="block w-full max-w-[550px] text-center mb-5"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }} // Tambahkan delay untuk animasi bertahap
-        >
-          <p className="font-['Kumbh_Sans'] text-lg font-normal text-gray-800 leading-7">
-            HubiThat reimagines longstay living in the modern cities by converting underutilized rooftops into forest and garden integrated with smart and compact cabin. We offer unique, sustainable escapes with stunning views, blending comfort, innovation, and nature integragtion definitely to make you more productive.
-          </p>
-        </motion.span>
-
-        <motion.div
-          className="flex flex-wrap justify-center items-stretch w-full py-6"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }} // Tambahkan delay untuk animasi bertahap
-        >
-          <FeatureCard
-            icon={<Rocket className="text-white" />}
-            title="Green Oasis"
-            description="Escape the city bustle in our forest garden, with breathtaking cityscapes views."
-            darkBg={true}
-          />
-
-          <FeatureCard
-            icon={<Heart className="text-black" />}
-            title="Smart Capsule"
-            description="Experience smart and sleek design capsule designed for ultimate relaxation and privacy."
-            darkBg={false}
-          />
-
-          <FeatureCard
-            icon={<Lock className="text-white" />}
-            title="Eco-Friendly"
-            description="We make sustainable design with renewable energy and reusing and recycling water for the habitat."
-            darkBg={true}
-          />
-        </motion.div>
-      </div>
+      <Test/>
       
       <div className="max-w-[1440px] mx-auto">
         {/* Hero Section */}

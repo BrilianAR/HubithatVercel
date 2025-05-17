@@ -29,7 +29,7 @@ const HeroSection: React.FC = () => {
 
         {/* Text content positioned second on mobile, first on desktop */}
         <motion.div
-          className="flex px-4 flex-col py-5 max-w-full md:max-w-[575px] text-center md:text-left md:order-1"
+          className="flex px-4 flex-col py-5 md:max-w-[575px] text-center md:text-left md:order-1"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
