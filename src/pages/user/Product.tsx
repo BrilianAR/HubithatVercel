@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Calendar, MapPin, Clock, Users } from 'lucide-react';
 import logo from "../../assets/hubithat-logo.png";
 import { Link } from 'react-router-dom';
@@ -226,7 +226,31 @@ const CheckHubithat = ({
     { value: 'price-desc', label: 'Price: High to Low' },
     { value: 'name-asc', label: 'Name: A to Z' },
     { value: 'name-desc', label: 'Name: Z to A' },
-  ];
+    ];
+
+  type Location = {
+    id: number;
+    city: string;
+    country: string;
+  };
+
+  const uniqueLocations = useMemo(() => {
+    const uniqueMap = new Map<string, Location>();
+    
+    locations.forEach((loc: Location) => {
+      const key = `${loc.city}-${loc.country}`;
+      if (!uniqueMap.has(key)) {
+        uniqueMap.set(key, {
+          id: loc.id,
+          city: loc.city,
+          country: loc.country
+        });
+      }
+    });
+    
+    return Array.from(uniqueMap.values());
+  }, [locations]);
+
 
   // Format date for display
   const formatDate = (date : any) => {
@@ -325,7 +349,7 @@ const CheckHubithat = ({
             {showLocations && (
               <div className="absolute z-20 mt-1 w-full bg-white rounded-lg shadow-lg max-h-60 overflow-auto border border-gray-200">
                 <ul className="py-1">
-                  {locations.map((location: any) => (
+                  {uniqueLocations.map((location) => (
                     <li
                       key={location.id}
                       className={`px-4 py-2 cursor-pointer ${
@@ -346,6 +370,7 @@ const CheckHubithat = ({
               </div>
             )}
           </div>
+          
           {/* City Selection */}
           {/* <div className="relative">
             <label className="block text-xs font-bold mb-1 text-[var(--bg-color)]">City</label>

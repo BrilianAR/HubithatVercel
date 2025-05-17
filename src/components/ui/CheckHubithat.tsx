@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Calendar, MapPin, Clock, Search } from 'lucide-react';
 import logo from "../../assets/hubithat-logo.png"
+import { useNavigate } from 'react-router-dom';
 
 export default function HorizontalHubithat() {
   // Product type selection
@@ -10,6 +11,7 @@ export default function HorizontalHubithat() {
   const [checkOutDate, setCheckOutDate] = useState(new Date(new Date().setMonth(new Date().getMonth() + 1)));
   const [duration, setDuration] = useState('1 Month(s)');
   const [showCalendar, setShowCalendar] = useState(false);
+  const navigate = useNavigate();
   
   // Location handling
   const [selectedLocation, setSelectedLocation] = useState<{ id: number; name: string; area: string } | null>(null);
@@ -283,18 +285,21 @@ export default function HorizontalHubithat() {
             disabled={!isFormValid}
             className="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg font-semibold text-white"
             style={{
-              backgroundColor: isFormValid ? styles.buttonColor : 'rgb(57, 189, 154)',
+              backgroundColor: isFormValid ? 'rgb(57, 189, 154)' : 'rgb(57, 189, 154)',
+              opacity: isFormValid ? 1 : 0.7,
               cursor: isFormValid ? 'pointer' : 'not-allowed'
             }}
-            onClick={() => {
-              if (isFormValid) {
-                if (selectedLocation) {
-                  alert(`Booking details:\nLocation: ${selectedLocation.name ?? "Unknown"}, ${selectedLocation.area ?? "Unknown"}\nStart Date: ${formatDate(checkInDate)}\nEnd Date: ${formatDate(checkOutDate)}\nDuration: ${duration}`);
-                } else {
-                  alert("Location not selected!");
-                }
-              }
-            }}
+            onClick={() => navigate("/product")}
+            // onClick={() => {
+              
+            //   if (isFormValid) {
+            //     // if (selectedLocation) {
+            //     //   alert(`Booking details:\nLocation: ${selectedLocation.name ?? "Unknown"}, ${selectedLocation.area ?? "Unknown"}\nStart Date: ${formatDate(checkInDate)}\nEnd Date: ${formatDate(checkOutDate)}\nDuration: ${duration}`);
+            //     // } else {
+            //     //   alert("Location not selected!");
+            //     // }
+            //   }
+            // }}
 
           >
             <Search className="h-5 w-5" />
