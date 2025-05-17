@@ -246,7 +246,7 @@ function PaymentPage({ onBack, paymentMethod, onPaymentMethodChange, onProcessPa
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-4">Select Payment Method</h3>
 
-            <div className="lg:space-y-3">
+            <div className="space-y-3">
               <div
                 className={`border ${paymentMethod === 'creditCard' ? 'border-[var(--button-color)] bg-blue-50' : 'border-gray-200'} rounded-lg p-4 cursor-pointer flex items-center`}
                 onClick={() => onPaymentMethodChange('creditCard')}
@@ -356,7 +356,7 @@ function PaymentPage({ onBack, paymentMethod, onPaymentMethodChange, onProcessPa
         </div>
 
         <div>
-          <div className="bg-gray-50 py-6 lg:py-0 rounded-lg">
+          <div className="py-6 lg:py-0 rounded-lg">
             <h3 className="text-lg font-semibold mb-4">Order Summary</h3>
 
             <div className="space-y-3 mb-6">
