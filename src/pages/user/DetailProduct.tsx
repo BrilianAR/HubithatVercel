@@ -1,14 +1,11 @@
-import { useState, useEffect } from 'react';
-import { Calendar, Star, MapPin, ChevronRight, Users, Coffee, Wifi, Car, AirVent, Phone, Clock, LandPlot } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Calendar, Star, MapPin, ChevronRight, Users, Waves, Coffee, Wifi, Car, AirVent, Phone, Clock, LandPlot } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useRef } from 'react';
 import { ChevronLeft } from 'lucide-react';
-
 
 export default function HotelDetailPage() {
   const [showModal, setShowModal] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
-  // const [selectedTab, setSelectedTab] = useState('overview');
   const [activeReviewsTab, setActiveReviewsTab] = useState('all');
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
@@ -16,9 +13,9 @@ export default function HotelDetailPage() {
   const navigate = useNavigate();
 
   const [selectedTab, setSelectedTab] = useState('overview');
-  const [isMobile, setIsMobile] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const scrollContainerRef = useRef(null);
+  // Explicitly type the ref as HTMLDivElement
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   
   const tabs = [
     { id: 'overview', label: 'Overview' },
@@ -28,22 +25,8 @@ export default function HotelDetailPage() {
     { id: 'reviews', label: 'Reviews' }
   ];
   
-  // Check if the screen is mobile size
-  useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkIfMobile();
-    window.addEventListener('resize', checkIfMobile);
-    
-    return () => {
-      window.removeEventListener('resize', checkIfMobile);
-    };
-  }, []);
-  
   // Handle scrolling of mobile tab container
-  const scroll = (direction) => {
+  const scroll = (direction: 'left' | 'right') => {
     const container = scrollContainerRef.current;
     if (!container) return;
     
@@ -61,7 +44,7 @@ export default function HotelDetailPage() {
   };
   
   // Check if we can scroll in a specific direction
-  const canScroll = (direction) => {
+  const canScroll = (direction: 'left' | 'right'): boolean => {
     const container = scrollContainerRef.current;
     if (!container) return false;
     
@@ -80,6 +63,16 @@ export default function HotelDetailPage() {
     }
   };
 
+  // Add effect to set up scroll event listener
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      return () => {
+        container.removeEventListener('scroll', handleScroll);
+      };
+    };
+  });
   const photos = [
     {
       id: 1,
@@ -156,7 +149,7 @@ export default function HotelDetailPage() {
   const facilities = [
     { name: "Free WiFi", icon: <Wifi className="h-5 w-5" /> },
     { name: "Restaurant", icon: <Coffee className="h-5 w-5" /> },
-    { name: "Swimming Pool", icon: <Wifi className="h-5 w-5" /> },
+    { name: "Swimming Pool", icon: <Waves className="h-5 w-5" /> },
     { name: "Parking", icon: <Car className="h-5 w-5" /> },
     { name: "Air Conditioning", icon: <AirVent className="h-5 w-5" /> },
     { name: "24/7 Reception", icon: <Clock className="h-5 w-5" /> },

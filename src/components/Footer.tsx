@@ -4,10 +4,6 @@
 import React from "react";
 import {
   Blocks,
-  CodeXml,
-  Handshake,
-  Scale,
-  Webhook,
   ArrowRight,
   Twitter,
   Instagram, 
