@@ -78,7 +78,7 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
       />
       </ContainerScroll>
       {/* <ModelViewer modelPath="/assets/3d.glb" /> */}
-      <div className="flex flex-col items-center justify-center w-full max-w-[1980px] py-6 lg:py-24 px-4 mx-auto bg-gray-100 gap-y-5 lg:gap-y-16">
+      <div className="flex flex-col items-center justify-center w-full max-w-[1980px] py-6 md:py-24 px-4 mx-auto bg-gray-100 gap-y-5 md:gap-y-16">
         <motion.div
           className="flex flex-wrap justify-between w-full max-w-[1199px] gap-x-24 gap-y-5"
           initial={{ opacity: 0, y: 50 }} // Awal: Transparan dan bergeser sedikit ke bawah
@@ -86,30 +86,30 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
           viewport={{ once: true, amount: 0.2 }} // Animasi hanya terjadi sekali saat 20% elemen terlihat
           transition={{ duration: 0.6, ease: "easeOut" }} // Durasi lebih cepat
         >
-          <span className="block w-full max-w-[300px] mt-3 font-['Kumbh_Sans'] text-base lg:text-xl text-gray-800 leading-[30px]">
+          <span className="block w-full max-w-[300px] mt-3 font-['Kumbh_Sans'] text-base md:text-xl text-gray-800 leading-[30px]">
             <p>Experience the future of urban hospitality with HubiThat's innovative rooftop sanctuaries.</p>
           </span>
-          <span className="block w-full max-w-[800px] font-['Kumbh_Sans'] text-3xl lg:text-5xl font-medium text-gray-800 lg:leading-[65px]">
+          <span className="block w-full max-w-[800px] font-['Kumbh_Sans'] text-3xl md:text-5xl font-medium text-gray-800 md:leading-[65px]">
             <p>HubiThat: Redefining Urban Living with Roof Forest built for Megapolitans to recharge the soul and find calmness ASAP</p>
           </span>
         </motion.div>
         
 
         <motion.div
-          className="flex flex-wrap w-full max-w-[1200px] lg:gap-x-24 gap-x-4 lg:gap-y-8"
+          className="flex flex-wrap w-full max-w-[1200px] justify-center items-center gap-y-2 md:gap-x-24 gap-x-4 md:gap-y-8"
           initial={{ opacity: 0, y: 50 }} // Awal: Transparan dan bergeser sedikit ke bawah
           whileInView={{ opacity: 1, y: 0 }} // Akhir: Muncul di posisi semula
           viewport={{ once: true, amount: 0.2 }} // Animasi hanya terjadi sekali saat 20% elemen terlihat
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }} // Tambahkan delay untuk animasi bertahap
         >
-          <span className="block w-full max-w-[170px] h-[100px] lg:max-w-[550px] lg:h-[370px]">
+          <span className="block w-full max-w-[170px] h-[100px] md:max-w-[550px] md:h-[370px]">
             <img
               src={image1}
               alt="Rooftop Capsule Hotel"
               className="w-full h-full object-cover rounded-lg"
             />
           </span>
-          <span className="block w-full max-w-[170px] h-[100px] lg:max-w-[550px] lg:h-[370px]">
+          <span className="block w-full max-w-[170px] h-[100px] md:max-w-[550px] md:h-[370px]">
             <img
               src={image2}
               alt="Green Space"
@@ -120,63 +120,62 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
       </div>
 
       <Test/>
-      
-     <div className="max-w-[1440px] mx-auto">
+
+      <div className="max-w-[1440px] mx-auto">
         {/* Hero Section */}
-        <div className="flex flex-col justify-center items-center gap-y-8 py-12 md:py-24 px-4">
+        <div className="flex flex-col justify-center items-center gap-y-6 py-8 md:py-24 px-4">
           <div className="flex flex-col max-w-[1200px] w-full justify-center">
             {/* First Row - Hero */}
-            <div className="flex flex-col flex-row justify-center items-center gap-y-4">
-              <div className="flex flex-col items-start gap-4 md:gap-8 max-w-[600px] w-full px-0">
-                <h1 className="font-bold text-lg md:text-2xl text-gray-800 leading-7 md:leading-9 md:max-w-[400px] font-['Kumbh_Sans']">
+            <div className="flex flex-col md:flex-row justify-center items-center gap-y-6 md:gap-x-8">
+              <div className="flex flex-col items-start gap-4 md:gap-8 w-full md:max-w-[500px] px-0">
+                <h1 className="font-bold text-2xl md:text-3xl text-gray-800 leading-8 md:leading-10 font-['Kumbh_Sans']">
                   Oasis Capsule living : Your Villa's like space in bustles cities
                 </h1>
-                <p className="font-normal text-sm md:text-lg text-gray-800 leading-6 md:leading-7 md:max-w-[400px] font-['Kumbh_Sans']">
+                <p className="font-normal text-base md:text-lg text-gray-800 leading-6 md:leading-7 font-['Kumbh_Sans']">
                   Experience innovative capsule space integrated with lush rooftop gardens. Enjoy comfort, sustainability, and breathtaking city views. Book your stay now!
                 </p>
-                <div className="flex flex-col max-w-[150px] md:max-w-[200px] w-[150px] md:w-[200px]">
-                  <Button>
+                <div className="w-full md:w-auto">
+                  <Button >
                     Book Now
                   </Button>
                 </div>
               </div>
-              <div className="max-w-[350px] md:max-w-[600px] w-full h-[350px] md:h-[450px] mt-4 md:mt-0">
+              <div className="w-full md:max-w-[600px] h-[300px] md:h-[450px] mt-4 md:mt-0">
                 <img 
                   src={image3}
                   alt="Rooftop Capsule Hotel exterior" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-lg"
                 />
               </div>
             </div>
 
-
             {/* Second Row */}
-            <div className="flex flex-col flex-row justify-center items-center mt-4 md:mt-0 gap-x-4 gap-y-4">
-              <div className="max-w-[350px] md:max-w-[600px] w-full h-[350px] md:h-[450px] order-1 md:order-1">
+            <div className="flex flex-col md:flex-row justify-center items-center mt-12 gap-y-6 md:gap-x-8">
+              <div className="w-full md:max-w-[600px] h-[300px] md:h-[450px] order-2 md:order-1">
                 <img
                   src={image4}
                   alt="Green rooftop garden view"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-lg"
                 />
               </div>
-              <div className="flex flex-col justify-center items-stretch max-w-[600px] w-full px-0 md:px-20 gap-4 md:gap-12 order-1 md:order-2 mb-4 md:mb-0">
-                <h2 className="font-bold text-lg md:text-2xl text-gray-800 leading-7 md:leading-9 font-['Kumbh_Sans']">
+              <div className="flex flex-col justify-center items-start w-full md:max-w-[500px] gap-4 md:gap-8 order-1 md:order-2 mb-4 md:mb-0">
+                <h2 className="font-bold text-2xl md:text-3xl text-gray-800 leading-8 md:leading-10 font-['Kumbh_Sans']">
                   Green Rooftops
                 </h2>
-                <div className="flex flex-col gap-2 max-w-[150px] md:max-w-[200px]">
-                  <div className="flex items-center gap-3 md:gap-4">
-                    <Check size={18} className="text-gray-800" />
-                    <p className="font-normal text-sm md:text-base text-gray-800 leading-6 md:leading-7 font-['Kumbh_Sans']">
+                <div className="flex flex-col gap-4 w-full">
+                  <div className="flex items-center gap-3">
+                    <Check size={20} className="text-gray-800" />
+                    <p className="font-normal text-base text-gray-800 leading-6 font-['Kumbh_Sans']">
                       Privacy
                     </p>
                   </div>
-                  <div className="flex items-center gap-3 md:gap-4 mb-2 md:mb-3">
-                    <Check size={18} className="text-gray-800" />
-                    <p className="font-normal text-sm md:text-base text-gray-800 leading-6 md:leading-7 font-['Kumbh_Sans']">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Check size={20} className="text-gray-800" />
+                    <p className="font-normal text-base text-gray-800 leading-6 font-['Kumbh_Sans']">
                       Comfort
                     </p>
                   </div>
-                  <Button>
+                  <Button >
                     See More
                   </Button>
                 </div>
@@ -184,40 +183,41 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
             </div>
 
             {/* Third Row */}
-            <div className="flex flex-col flex-row justify-center items-center mt-4 md:mt-0 gap-y-4">
-              <div className="flex flex-col justify-right items-stretch max-w-[600px] w-full px-0 md:px-20 gap-4 md:gap-12 mb-4 md:mb-0">
-                <h2 className="font-bold text-lg md:text-2xl text-gray-800 leading-7 md:leading-9 font-['Kumbh_Sans']">
+            <div className="flex flex-col md:flex-row justify-center items-center mt-12 gap-y-6 md:gap-x-8">
+              <div className="flex flex-col justify-start items-start w-full md:max-w-[500px] gap-4 md:gap-8 order-1 mb-4 md:mb-0">
+                <h2 className="font-bold text-2xl md:text-3xl text-gray-800 leading-8 md:leading-10 font-['Kumbh_Sans']">
                   Urban Oasis Stays
                 </h2>
-                <div className="flex flex-col gap-2 w-full max-w-[150px] md:max-w-[200px]">
-                  <div className="flex items-center gap-3 md:gap-4">
-                    <Check size={18} className="text-gray-800" />
-                    <p className="font-normal text-sm md:text-base text-gray-800 leading-6 md:leading-7 font-['Kumbh_Sans']">
+                <div className="flex flex-col gap-4 w-full">
+                  <div className="flex items-center gap-3">
+                    <Check size={20} className="text-gray-800" />
+                    <p className="font-normal text-base text-gray-800 leading-6 font-['Kumbh_Sans']">
                       Green Living in the City
                     </p>
                   </div>
-                  <div className="flex items-center gap-3 md:gap-4 mb-2 md:mb-3">
-                    <Check size={18} className="text-gray-800" />
-                    <p className="font-normal text-sm md:text-base text-gray-800 leading-6 md:leading-7 font-['Kumbh_Sans']">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Check size={20} className="text-gray-800" />
+                    <p className="font-normal text-base text-gray-800 leading-6 font-['Kumbh_Sans']">
                       Modern Sustainability
                     </p>
                   </div>
-                  <Button>
+                  <Button >
                     Explore
                   </Button>
                 </div>
               </div>
-              <div className="max-w-[350px] md:max-w-[600px] w-full h-[350px] md:h-[450px]">
+              <div className="w-full md:max-w-[600px] h-[300px] md:h-[450px] order-2">
                 <img 
                   src={image7}
                   alt="Sustainable hotel features" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-lg"
                 />
               </div>
             </div>
           </div>
         </div>
       </div>
+
 
       <Produc/>
 
@@ -264,7 +264,7 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
             <img
               src={map}
               alt="Urban getaway"
-              className="w-full h-auto max-w-full lg:py-8 md:max-w-sm min-h-[400px] rounded-lg object-cover"
+              className="w-full h-auto max-w-full md:py-8 md:max-w-sm min-h-[400px] rounded-lg object-cover"
             />
           </div>
         </div>
