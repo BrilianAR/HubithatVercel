@@ -231,15 +231,8 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
 
 
             {/* Second Row */}
-            <div className="flex flex-wrap justify-center items-center gap-y-8">
-              <div className="max-w-[600px] w-full h-[450px]">
-                <img 
-                  src={image4}
-                  alt="Green rooftop garden view" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="flex flex-col justify-center items-stretch max-w-[600px] w-full px-20 gap-12">
+            <div className="flex flex-col md:flex-row justify-center items-center gap-y-8">
+              <div className="flex flex-col justify-center items-stretch max-w-[600px] w-full px-4 md:px-20 gap-12 order-1 md:order-2">
                 <h2 className="font-bold text-2xl text-gray-800 leading-9 font-['Kumbh_Sans']">
                   Green Rooftops
                 </h2>
@@ -256,16 +249,23 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
                       Comfort
                     </p>
                   </div>
-                <Button>
-                  See More
-                </Button>
+                  <Button>
+                    See More
+                  </Button>
                 </div>
+              </div>
+              <div className="max-w-[600px] w-full h-[300px] md:h-[450px] order-2 md:order-1">
+                <img
+                  src={image4}
+                  alt="Green rooftop garden view"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
 
             {/* Third Row */}
             <div className="flex flex-wrap justify-center items-center gap-y-8">
-              <div className="flex flex-col justify-center items-stretch max-w-[600px] w-full px-20 gap-12">
+              <div className="flex flex-col justify-right items-stretch max-w-[600px] w-full px-20 gap-12">
                 <h2 className="font-bold text-2xl text-gray-800 leading-9 font-['Kumbh_Sans']">
                   Urban Oasis Stays
                 </h2>

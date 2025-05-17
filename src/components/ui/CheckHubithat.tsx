@@ -87,8 +87,8 @@ export default function HorizontalHubithat() {
         <div className="flex items-center justify-between mb-2">
           {/* Logo and greeting */}
           <div className="flex items-center gap-4">
-            <div className="flex items-center justify-center h-12 w-12 rounded-full">
-              <img src={logo} alt="Logo" />
+            <div className="flex items-center justify-center h-8 w-8 md:h-12 md:w-12 rounded-full">
+              <img src={logo} alt="Logo" className="ml-0 md:ml-4" /> {/* Tambahkan margin kiri */}
             </div>
             <div>
               <h2 className="text-lg font-bold text-[var(--bg-color)]">Hubithat</h2>
