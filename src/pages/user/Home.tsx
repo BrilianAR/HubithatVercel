@@ -41,7 +41,7 @@ import HeroSection from "../../components/ui/Herosection";
 const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
   const images = [svg1, svg2, svg3, svg4, svg5, svg6]; // Array gambar
   const [currentIndex, setCurrentIndex] = useState(0); // State untuk indeks gambar saat ini
-  const [previousIndex, setPreviousIndex] = useState(null); // State untuk menyimpan indeks gambar sebelumnya
+  const [previousIndex, setPreviousIndex] = useState<number | null>(null); // State untuk menyimpan indeks gambar sebelumnya sebelumnya
 
   useEffect(() => {
     const interval = setInterval(() => {
