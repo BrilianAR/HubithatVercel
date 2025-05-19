@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 // import React from "react";
 // import image from "../../assets/ucing.png"
 import ContactPage from "../../components/ui/ContactPage";
@@ -41,14 +41,16 @@ import HeroSection from "../../components/ui/Herosection";
 const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
   const images = [svg1, svg2, svg3, svg4, svg5, svg6]; // Array gambar
   const [currentIndex, setCurrentIndex] = useState(0); // State untuk indeks gambar saat ini
+  const [previousIndex, setPreviousIndex] = useState(null); // State untuk menyimpan indeks gambar sebelumnya
 
   useEffect(() => {
     const interval = setInterval(() => {
+      setPreviousIndex(currentIndex); // Simpan indeks saat ini sebelum mengubahnya
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length); // Perbarui indeks secara berulang
-    }, 1000); // Ganti gambar setiap 3 detik
+    }, 1500); // Ganti gambar setiap 3 detik untuk memberikan waktu transisi
 
     return () => clearInterval(interval); // Bersihkan interval saat komponen dilepas
-  }, [images.length]);
+  }, [images.length, currentIndex]);
 
   return (
     <div>
@@ -64,18 +66,45 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
             <h1 className="text-2xl md:text-4xl font-semibold text-black dark:text-white text-cente">
               Discover a New Way to Stay in the City <br />
               <span className="text-2xl md:text-[6rem] font-bold mt-1 leading-tight md:leading-none">
-                Cozy stays on rooftops
+                Cozy Stays on Roofgarden
               </span>
             </h1>
           </>
         }
       >
-        <img
-          src={images[currentIndex]} // Gambar berdasarkan indeks saat ini
-          alt="hero"
-          className="mx-auto rounded-lg md:rounded-2xl pt-0 md:pl-10 md:w-[1320px] md:h-[620px] object-cover h-[200px] object-center md:object-left-top"
-          draggable={false}
-      />
+        <div className="relative mx-auto md:pl-10 w-full h-[200px] md:h-[620px]">
+          <AnimatePresence>
+            {/* Gambar saat ini dengan fade in */}
+            <motion.img
+              key={`current-${currentIndex}`}
+              src={images[currentIndex]}
+              alt={`hero-current`}
+              className="absolute top-0 left-0 mx-auto rounded-lg md:rounded-2xl w-full md:w-[1320px] h-full object-cover object-center md:object-left-top"
+              draggable={false}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ 
+                duration: 1.2,
+              }}
+            />
+            
+            {/* Gambar sebelumnya dengan fade out lebih lambat */}
+            {previousIndex !== null && (
+              <motion.img
+                key={`previous-${previousIndex}`}
+                src={images[previousIndex]}
+                alt={`hero-previous`}
+                className="absolute top-0 left-0 mx-auto rounded-lg md:rounded-2xl w-full md:w-[1320px] h-full object-cover object-center md:object-left-top"
+                draggable={false}
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 0 }}
+                transition={{ 
+                  duration: 1.5,
+                }}
+              />
+            )}
+          </AnimatePresence>
+        </div>
       </ContainerScroll>
       {/* <ModelViewer modelPath="/assets/3d.glb" /> */}
       <div className="flex flex-col items-center justify-center w-full max-w-[1980px] py-6 md:py-24 px-4 mx-auto bg-gray-100 gap-y-5 md:gap-y-16">
@@ -299,11 +328,6 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
       </div>
 
     </div>
-
-
-
-
-    
   );
 };
 
