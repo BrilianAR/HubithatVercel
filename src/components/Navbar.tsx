@@ -102,7 +102,7 @@ const Navbar = () => {
                   to={item.href}
                   className="no-underline z-10"
                 >
-                  <p className="font-['Kumbh_Sans'] text-base font-normal leading-7 px-4 py-2">
+                  <p className=" text-base font-normal leading-7 px-4 py-2">
                     {item.name}
                   </p>
                 </Link>
@@ -248,7 +248,7 @@ const Navbar = () => {
                     className="no-underline px-4 py-2 hover:bg-gray-800/30 rounded-md"
                     onClick={() => setMenuOpen(false)}
                   >
-                    <p className="font-['Kumbh_Sans'] text-base font-normal text-black">
+                    <p className=" text-base font-normal text-black">
                       {item.name}
                     </p>
                   </Link>
