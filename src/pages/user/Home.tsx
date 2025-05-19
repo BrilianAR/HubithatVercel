@@ -87,7 +87,7 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
           transition={{ duration: 0.6, ease: "easeOut" }} // Durasi lebih cepat
         >
           <span className="block w-full max-w-[300px] mt-3 font-['Kumbh_Sans'] text-base md:text-xl text-gray-800 leading-[30px]">
-            <p>Experience the future of urban hospitality with HubiThat's innovative rooftop sanctuaries.</p>
+            <p>Experience the future of urban hospitality with HubiThat's innovative roofgarden sanctuaries.</p>
           </span>
           <span className="block w-full max-w-[800px] font-['Kumbh_Sans'] text-3xl md:text-5xl font-medium text-gray-800 md:leading-[65px]">
             <p>HubiThat: Redefining Urban Living with Roof Forest built for Megapolitans to recharge the soul and find calmness ASAP</p>
