@@ -198,7 +198,7 @@ const FooterDemo = () => {
       brand={{ 
         name: "HubiThat", 
         description: "Discover HubiThat: Unique stays atop buildings, blending nature and modern comfort. Book your elevated escape today!",
-        heroText: "Experience Green Roofs, Capsule Hotel Stays",
+        heroText: "Experiencing Roofgarden, with Smart Capsule Hotel Stays",
         callToAction: {
           text: "Book Now",
           href: "/product"
