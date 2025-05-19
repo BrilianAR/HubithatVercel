@@ -121,20 +121,20 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
 
       <Test/>
 
-       <div className="max-w-[1440px] mx-auto">
+      <div className="max-w-[1440px] mx-auto">
         {/* Hero Section */}
         <div className="flex flex-wrap justify-center items-center gap-y-8 py-24 px-4 ">
           <div className="flex flex-col max-w-[1200px] w-full justify-center">
             {/* First Row - Hero */}
-            <div className="flex flex-wrap justify-center items-center gap-y-15 ">
-              <div className="flex flex-col items-start gap-8 max-w-[600px] w-full px-0">
+            <div className="flex flex-wrap justify-center items-center gap-y-5 md:gap-y-15 ">
+              <div className="flex flex-col items-start gap-2 md:gap-8 max-w-[600px] w-full px-0">
                 <h1 className="font-bold text-2xl text-gray-800 leading-9 max-w-[400px] font-['Kumbh_Sans']">
-                  Oasis Capsule living : Your Villa’s like space in bustles cities
+                  Oasis Capsule living : Your Villa's like space in bustles cities
                 </h1>
                 <p className="font-normal text-lg text-gray-800 leading-7 max-w-[400px] font-['Kumbh_Sans']">
                   Experience innovative capsule space integrated with lush rooftop gardens. Enjoy comfort, sustainability, and breathtaking city views. Book your stay now!
                 </p>
-                <div className="flex flex-col w-full md:w-[200px]">
+                <div className="hidden md:flex flex-col w-full md:w-[200px]">
                   <Button>
                     Book Now
                   </Button>
@@ -147,11 +147,26 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
+              <div className="flex md:hidden flex-col w-full mt-4">
+                <Button>
+                  Book Now
+                </Button>
+              </div>
             </div>
 
 
             {/* Second Row */}
-            <div className="flex flex-col md:flex-row justify-center items-center gap-y-8 py-10 md:py-0">
+            <div className="flex flex-col md:flex-row justify-center items-center gap-y-4 md:gap-y-8 py-10 md:py-0">
+              {/* Gambar pada mobile tetap di posisi awal */}
+              <div className="max-w-[600px] w-full h-[250px] md:h-[450px] order-2 md:order-1">
+                <img
+                  src={image4}
+                  alt="Green rooftop garden view"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              {/* Konten deskripsi tetap di posisi asli */}
               <div className="flex flex-col justify-center items-stretch max-w-[600px] w-full md:px-20 gap-4 md:gap-12 order-1 md:order-2">
                 <h2 className="font-bold text-2xl text-gray-800 md:leading-9 font-['Kumbh_Sans']">
                   Green Rooftops
@@ -169,22 +184,25 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
                       Comfort
                     </p>
                   </div>
-                  <Button>
-                    See More
-                  </Button>
+                  {/* Tombol desktop (hanya ditampilkan di desktop) */}
+                  <div className="hidden md:flex flex-col w-full md:w-[200px]">
+                    <Button>
+                      See More
+                    </Button>
+                  </div>
                 </div>
               </div>
-              <div className="max-w-[600px] w-full h-[250px] md:h-[450px] order-2 md:order-1">
-                <img
-                  src={image4}
-                  alt="Green rooftop garden view"
-                  className="w-full h-full object-cover"
-                />
+              
+              {/* Tombol mobile di bawah gambar (hanya ditampilkan di mobile) */}
+              <div className="flex md:hidden flex-col w-full order-3">
+                <Button>
+                  See More
+                </Button>
               </div>
             </div>
 
             {/* Third Row */}
-            <div className="flex flex-wrap justify-center items-center gap-y-8">
+            <div className="flex flex-wrap justify-center items-center gap-y-4 md:gap-y-8">
               <div className="flex flex-col justify-right items-stretch max-w-[600px] w-full md:px-20 gap-4 md:gap-12">
                 <h2 className="font-bold text-2xl text-gray-800 leading-9 font-['Kumbh_Sans']">
                   Urban Oasis Stays
@@ -202,9 +220,12 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
                       Modern Sustainability
                     </p>
                   </div>
-                <Button>
-                  Explore
-                </Button>
+                {/* Tombol desktop (hanya ditampilkan di desktop) */}
+                  <div className="hidden md:flex flex-col w-full md:w-[200px]">
+                    <Button>
+                      Explore
+                    </Button>
+                  </div>
                 </div>
               </div>
               <div className="max-w-[600px] w-full h-[250px] md:h-[450px]">
@@ -213,6 +234,12 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
                   alt="Sustainable hotel features" 
                   className="w-full h-full object-cover"
                 />
+              </div>
+              {/* Tombol mobile di bawah gambar (hanya ditampilkan di mobile) */}
+              <div className="flex md:hidden flex-col w-full order-3">
+                <Button>
+                  Explore
+                </Button>
               </div>
             </div>
           </div>

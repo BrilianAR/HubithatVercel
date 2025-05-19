@@ -71,23 +71,23 @@ const LifestyleMatchSection = () => {
           <div className="flex flex-col lg:flex-row items-center w-full">
             {/* Room types cards */}
             <motion.div
-              className="flex flex-row flex-wrap gap-4 flex-1 items-start justify-center md:justify-start"
+              className="flex flex-row flex-wrap gap-5 md:gap-10 flex-1 items-start justify-center md:justify-start"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               {roomTypes.map((room, index) => (
-                <div key={index} className="w-42 sm:w-48 h-58">
+                <div key={index} className="w-40 sm:w-40 h-50">
                   <div
-                    className="h-full rounded-lg p-4 sm:p-6 shadow-sm border-t-4"
-                    style={{ backgroundColor: "#d6cda4", borderColor: "#3d8361" }}
+                    className="h-full rounded-lg shadow-sm"
+                    style={{ backgroundColor: "#d6cda4"}}
                   >
-                    <div className="h-24 sm:h-28 flex items-center justify-center mb-4">
+                    <div className="items-center justify-center mb-2">
                       <img
                         src={room.image}
                         alt={`${room.title} ${room.subtitle}`}
-                        className="max-h-full max-w-full"
+                        className="h-30 w-full object-cover rounded-t-sm"
                       />
                     </div>
                     <div className="text-center">
