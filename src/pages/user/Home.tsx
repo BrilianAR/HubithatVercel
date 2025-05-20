@@ -115,10 +115,10 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
           viewport={{ once: true, amount: 0.2 }} // Animasi hanya terjadi sekali saat 20% elemen terlihat
           transition={{ duration: 0.6, ease: "easeOut" }} // Durasi lebih cepat
         >
-          <span className="block w-full max-w-[300px] mt-3 font-['Kumbh_Sans'] text-base md:text-xl text-gray-800 leading-[30px]">
+          <span className="block w-full max-w-[300px] mt-3  text-base md:text-xl text-gray-800 leading-[30px]">
             <p>Experience the future of urban hospitality with HubiThat's innovative roofgarden sanctuaries.</p>
           </span>
-          <span className="block w-full max-w-[800px] font-['Kumbh_Sans'] text-3xl md:text-5xl font-medium text-gray-800 md:leading-[65px]">
+          <span className="block w-full max-w-[800px]  text-3xl md:text-5xl font-medium text-gray-800 md:leading-[65px]">
             <p>HubiThat: Redefining Urban Living with Roof Forest built for Megapolitans to recharge the soul and find calmness ASAP</p>
           </span>
         </motion.div>
@@ -157,10 +157,10 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
             {/* First Row - Hero */}
             <div className="flex flex-wrap justify-center items-center gap-y-5 md:gap-y-15 ">
               <div className="flex flex-col items-start gap-2 md:gap-8 max-w-[600px] w-full px-0">
-                <h1 className="font-bold text-2xl text-gray-800 leading-9 max-w-[400px] font-['Kumbh_Sans']">
+                <h1 className="font-bold text-2xl text-gray-800 leading-9 max-w-[400px] ">
                   Oasis Capsule living : Your Villa's like space in bustles cities
                 </h1>
-                <p className="font-normal text-lg text-gray-800 leading-7 max-w-[400px] font-['Kumbh_Sans']">
+                <p className="font-normal text-lg text-gray-800 leading-7 max-w-[400px] ">
                   Experience innovative capsule space integrated with lush rooftop gardens. Enjoy comfort, sustainability, and breathtaking city views. Book your stay now!
                 </p>
                 <div className="hidden md:flex flex-col w-full md:w-[200px]">
@@ -197,19 +197,19 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
               
               {/* Konten deskripsi tetap di posisi asli */}
               <div className="flex flex-col justify-center items-stretch max-w-[600px] w-full md:px-20 gap-4 md:gap-12 order-1 md:order-2">
-                <h2 className="font-bold text-2xl text-gray-800 md:leading-9 font-['Kumbh_Sans']">
+                <h2 className="font-bold text-2xl text-gray-800 md:leading-9 ">
                   Green Rooftops
                 </h2>
                 <div className="flex flex-col gap-2 w-full md:max-w-[200px]">
                   <div className="flex items-center gap-4">
                     <Check size={22} className="text-gray-800" />
-                    <p className="font-normal text-base text-gray-800 leading-7 font-['Kumbh_Sans']">
+                    <p className="font-normal text-base text-gray-800 leading-7 ">
                       Privacy
                     </p>
                   </div>
                   <div className="flex items-center gap-4 mb-3">
                     <Check size={22} className="text-gray-800" />
-                    <p className="font-normal text-base text-gray-800 leading-7 font-['Kumbh_Sans']">
+                    <p className="font-normal text-base text-gray-800 leading-7 ">
                       Comfort
                     </p>
                   </div>
@@ -233,19 +233,19 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
             {/* Third Row */}
             <div className="flex flex-wrap justify-center items-center gap-y-4 md:gap-y-8">
               <div className="flex flex-col justify-right items-stretch max-w-[600px] w-full md:px-20 gap-4 md:gap-12">
-                <h2 className="font-bold text-2xl text-gray-800 leading-9 font-['Kumbh_Sans']">
+                <h2 className="font-bold text-2xl text-gray-800 leading-9 ">
                   Urban Oasis Stays
                 </h2>
                 <div className="flex flex-col gap-2 w-full md:max-w-[200px]">
                   <div className="flex items-center gap-4 ">
                     <Check size={22} className="text-gray-800" />
-                    <p className="font-normal text-base text-gray-800 leading-7 font-['Kumbh_Sans']">
+                    <p className="font-normal text-base text-gray-800 leading-7 ">
                       Green Living in the City
                     </p>
                   </div>
                   <div className="flex items-center gap-4 mb-3 ">
                     <Check size={22} className="text-gray-800" />
-                    <p className="font-normal text-base text-gray-800 leading-7 font-['Kumbh_Sans']">
+                    <p className="font-normal text-base text-gray-800 leading-7 ">
                       Modern Sustainability
                     </p>
                   </div>
@@ -289,10 +289,10 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
         <div className="flex flex-col md:flex-row gap-8 md:gap-24 p-0 px-6 md:px-12 rounded-3xl bg-[#f5f5f5] max-w-7xl">
           <div className="flex flex-col justify-center items-stretch py-6 md:py-12 max-w-full md:max-w-lg md:order-1">
             {/* Text section - remains at the top on mobile */}
-            <h1 className="font-['Kumbh_Sans'] text-3xl md:text-5xl font-bold text-[#333] leading-[40px] md:leading-[60px] pb-5">
+            <h1 className=" text-3xl md:text-5xl font-bold text-[#333] leading-[40px] md:leading-[60px] pb-5">
               Ready for an Elevated Escape?
             </h1>
-            <p className="font-['Kumbh_Sans'] text-base md:text-lg font-light text-[#333] leading-6 md:leading-7 pb-5">
+            <p className=" text-base md:text-lg font-light text-[#333] leading-6 md:leading-7 pb-5">
               Discover a unique urban getaway. Experience comfort, sustainability, and breathtaking views. Book your HubiThat stay today!
             </p>
             

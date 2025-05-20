@@ -39,27 +39,27 @@ const ContactPage: React.FC = () => {
       {/* Left Column - Contact Information */}
       <div className="w-full lg:max-w-lg">
         <div className="flex flex-col">
-          <h1 className="font-bold text-4xl mb-1 font-['Kumbh_Sans']">Get In Touch</h1>
-          <p className="text-lg mb-8 font-['Kumbh_Sans']">
+          <h1 className="font-bold text-4xl mb-1 ">Get In Touch</h1>
+          <p className="text-lg mb-8 ">
             Contact us to learn more about HubiThat and partnerships.
           </p>
           
           {/* Email */}
           <div className="flex items-center gap-4 mb-3">
             <Mail size={16} />
-            <p className="text-base font-['Kumbh_Sans']">info@hubithat.com</p>
+            <p className="text-base ">info@hubithat.com</p>
           </div>
           
           {/* Phone */}
           <div className="flex items-center gap-4 mb-3">
             <Phone size={16} />
-            <p className="text-base font-['Kumbh_Sans']">+1-555-123-4567</p>
+            <p className="text-base ">+1-555-123-4567</p>
           </div>
           
           {/* Address */}
           <div className="flex items-center gap-4">
             <MapPin size={16} />
-            <p className="text-base font-['Kumbh_Sans']">123 Main Street, Suite 400, Anytown, CA 91234</p>
+            <p className="text-base ">123 Main Street, Suite 400, Anytown, CA 91234</p>
           </div>
         </div>
       </div>
@@ -69,7 +69,7 @@ const ContactPage: React.FC = () => {
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           {/* First Name */}
           <div className="flex flex-col gap-2">
-            <label htmlFor="firstName" className="text-base font-['Kumbh_Sans']">
+            <label htmlFor="firstName" className="text-base ">
               First Name
             </label>
             <input
@@ -79,14 +79,14 @@ const ContactPage: React.FC = () => {
               placeholder="First Name"
               value={formData.firstName}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg text-base font-['Kumbh_Sans'] bg-white"
+              className="w-full p-3 border border-gray-300 rounded-lg text-base  bg-white"
               required
             />
           </div>
           
           {/* Email */}
           <div className="flex flex-col gap-2">
-            <label htmlFor="email" className="text-base font-['Kumbh_Sans']">
+            <label htmlFor="email" className="text-base ">
               Email
             </label>
             <input
@@ -96,14 +96,14 @@ const ContactPage: React.FC = () => {
               placeholder="name@company.com"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg text-base font-['Kumbh_Sans'] bg-white"
+              className="w-full p-3 border border-gray-300 rounded-lg text-base  bg-white"
               required
             />
           </div>
           
           {/* Message */}
           <div className="flex flex-col gap-2">
-            <label htmlFor="message" className="text-base font-['Kumbh_Sans']">
+            <label htmlFor="message" className="text-base ">
               Message
             </label>
             <textarea
@@ -112,7 +112,7 @@ const ContactPage: React.FC = () => {
               placeholder="Type your message..."
               value={formData.message}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg text-base font-['Kumbh_Sans'] bg-white h-24"
+              className="w-full p-3 border border-gray-300 rounded-lg text-base  bg-white h-24"
               required
             />
           </div>
@@ -128,7 +128,7 @@ const ContactPage: React.FC = () => {
               className="h-4 w-4"
               required
             />
-            <label htmlFor="acceptTerms" className="text-sm text-gray-700 font-['Kumbh_Sans']">
+            <label htmlFor="acceptTerms" className="text-sm text-gray-700 ">
               I accept the terms
             </label>
           </div>
@@ -136,7 +136,7 @@ const ContactPage: React.FC = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="bg-[var(--button-color)] text-white hover:bg-[var(--bg-color)] hover:bg-opacity-80 font-semibold py-3 px-8 rounded-full w-fit font-['Kumbh_Sans']"
+            className="bg-[var(--button-color)] text-white hover:bg-[var(--bg-color)] hover:bg-opacity-80 font-semibold py-3 px-8 rounded-full w-fit "
           >
             Book Now
           </button>

@@ -17,10 +17,10 @@ const FeatureCard = ({ icon, title, description, darkBg }: FeatureCardProps) => 
       <span className="text-4xl pb-8">
         {icon}
       </span>
-      <span className="font-['Kumbh_Sans'] text-2xl font-medium py-2.5 text-left">
+      <span className=" text-2xl font-medium py-2.5 text-left">
         <p>{title}</p>
       </span>
-      <span className="font-['Kumbh_Sans'] text-base font-light leading-[26px] pb-2.5 text-left">
+      <span className=" text-base font-light leading-[26px] pb-2.5 text-left">
         <p>{description}</p>
       </span>
     </div>
@@ -73,7 +73,7 @@ export default function ResponsiveFeatureSection() {
                 viewport={{ once: true, amount: 0.2 }} // Animasi hanya terjadi sekali saat 20% elemen terlihat
                 transition={{ duration: 0.8, ease: "easeOut" }} // Durasi dan jenis transisi
               >
-                <p className="font-['Kumbh_Sans'] text-4xl font-bold text-gray-800 leading-[50px]">
+                <p className=" text-4xl font-bold text-gray-800 leading-[50px]">
                   Discover Elevated Urban Sanctuaries
                 </p>
               </motion.span>
@@ -85,7 +85,7 @@ export default function ResponsiveFeatureSection() {
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }} // Tambahkan delay untuk animasi bertahap
               >
-                <p className="font-['Kumbh_Sans'] text-lg font-normal text-gray-800 leading-7">
+                <p className=" text-lg font-normal text-gray-800 leading-7">
                   HubiThat reimagines longstay living in the modern cities by converting underutilized rooftops into forest and garden integrated with smart and compact cabin. We offer unique, sustainable escapes with stunning views, blending comfort, innovation, and nature integragtion definitely to make you more productive.
                 </p>
               </motion.span>

@@ -4,7 +4,7 @@ const BrandSection: React.FC = () => {
   return (
     <div className="flex flex-col items-center pt-16 md:pt-40 px-4 w-full max-w-7xl mx-auto">
       {/* Heading */}
-      <span className="block w-full max-w-xl text-center mb-5 font-['Kumbh_Sans']">
+      <span className="block w-full max-w-xl text-center mb-5">
         <p className="font-semibold text-sm md:text-lg text-gray-800 leading-5 md:leading-7 mb-4">
           Trusted by leading hospitality and sustainability-focused brands.
         </p>
