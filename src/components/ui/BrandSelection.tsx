@@ -2,7 +2,7 @@ import React from 'react';
 
 const BrandSection: React.FC = () => {
   return (
-    <div className="flex flex-col items-center pt-16 md:pt-40 px-4 w-full max-w-7xl mx-auto">
+    <div className="flex flex-col items-center pt-16 md:pt-40 px-4 w-full max-w-7xl mx-auto mb-32">
       {/* Heading */}
       <span className="block w-full max-w-xl text-center mb-5">
         <p className="font-semibold text-sm md:text-lg text-gray-800 leading-5 md:leading-7 mb-4">
