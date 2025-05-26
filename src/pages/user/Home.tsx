@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-//import { motion } from "framer-motion"; // If you plan to use framer-motion for smooth animations, keep this.
 import ContactPage from "../../components/ui/ContactPage";
 import Button from "../../components/ui/Button";
 import BrandSection from "../../components/ui/BrandSelection";
@@ -33,11 +32,13 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
 
   const [interactiveImageIndex, setInteractiveImageIndex] = useState<number>(0);
   const [imageWrapperOpacity, setImageWrapperOpacity] = useState<number>(0);
-  const [imageBlurAmount, setImageBlurAmount] = useState<number>(5); // Start blurred
+  const [imageBlurAmount, setImageBlurAmount] = useState<number>(0); 
+  const [imageTranslateY, setImageTranslateY] = useState<number>(100); 
+  const [imageScale, setImageScale] = useState<number>(0.8); 
 
   const interactiveSectionRef = useRef<HTMLDivElement>(null);
-  const fixTriggerRef = useRef<HTMLDivElement>(null); // Marks the start of the section controlling the image
-  const unfixTriggerRef = useRef<HTMLDivElement>(null); // Marks the end of the section controlling the image (where content below starts)
+  const fixTriggerRef = useRef<HTMLDivElement>(null);
+  const unfixTriggerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,47 +47,50 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
       const viewportHeight = window.innerHeight;
       const scrollY = window.scrollY;
 
-      const maxBlur = 5; // Maximum blur amount
+      const maxBlur = 5; 
 
       let currentOpacity = 0;
-      let currentBlur = maxBlur;
+      let currentBlur = 0; 
       let currentIndex = 0;
+      let currentTranslateY = 100; 
+      let currentScale = 0.8; 
 
       // Define scroll points for different animation phases
-      // Entry Phase: Image fades in and unblurs
-      // Starts blurring in when the bottom of 'fixTriggerRef' is halfway up the viewport
+      // Entry Phase: Image fades in and "jumps" into place
       const entryStartScroll = fixTriggerRef.current.offsetTop + fixTriggerRef.current.offsetHeight - viewportHeight / 2;
-      // Ends blurring in when the bottom of 'fixTriggerRef' is at the top of the viewport,
-      // and the interactiveSectionRef is clearly taking over.
       const entryEndScroll = fixTriggerRef.current.offsetTop + fixTriggerRef.current.offsetHeight;
 
-      // Interactive Phase: Image is fully visible, no blur, index changes
-      const interactiveStartScroll = entryEndScroll; // Begins right after entry ends
-      // Ends when the 'unfixTriggerRef' starts appearing from the bottom of the viewport
+      // Interactive Phase: Image is fully visible, index changes
+      const interactiveStartScroll = entryEndScroll;
       const interactiveEndScroll = unfixTriggerRef.current.offsetTop - viewportHeight;
 
-      // Exit Phase: Image fades out and blurs
-      const exitStartScroll = interactiveEndScroll; // Begins right after interactive phase ends
-      // Ends when the 'unfixTriggerRef' is halfway up the viewport
-      const exitEndScroll = unfixTriggerRef.current.offsetTop - viewportHeight / 2;
+      // Exit Phase: Image "jumps" out (upwards) and fades out (no blur)
+      const exitStartScroll = interactiveEndScroll;
+      const exitEndScroll = unfixTriggerRef.current.offsetTop - viewportHeight * 0.8; 
 
       // --- Animation Logic based on Scroll Position ---
 
       if (scrollY < entryStartScroll) {
-        // Before entry phase: Image is fully blurred and transparent
+        // Before entry phase: Image is transparent, below, and scaled down
         currentOpacity = 0;
-        currentBlur = maxBlur;
+        currentBlur = 0; 
         currentIndex = 0;
+        currentTranslateY = 100;
+        currentScale = 0.8;
       } else if (scrollY >= entryStartScroll && scrollY < entryEndScroll) {
-        // Entry phase: Image fades in and unblurs
+        // Entry phase: Image fades in, moves up, and scales up
         const progress = (scrollY - entryStartScroll) / (entryEndScroll - entryStartScroll);
-        currentOpacity = progress;
-        currentBlur = maxBlur * (1 - progress);
-        currentIndex = 0; // Keep the first image during entry animation
+        currentOpacity = progress; 
+        currentBlur = 0; 
+        currentIndex = 0;
+        currentTranslateY = 100 * (1 - progress); 
+        currentScale = 0.8 + (0.2 * progress); 
       } else if (scrollY >= interactiveStartScroll && scrollY < interactiveEndScroll) {
-        // Interactive phase: Image is fully visible, no blur, index changes
+        // Interactive phase: Image is fully visible, no blur, at center, full scale, index changes
         currentOpacity = 1;
-        currentBlur = 0;
+        currentBlur = 0; 
+        currentTranslateY = 0; 
+        currentScale = 1; 
 
         const totalInteractiveScrollRange = interactiveEndScroll - interactiveStartScroll;
         if (totalInteractiveScrollRange > 0) {
@@ -96,31 +100,36 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
           currentIndex = 0;
         }
       } else if (scrollY >= exitStartScroll && scrollY < exitEndScroll) {
-        // Exit phase: Image fades out and blurs back in
+        // Exit phase: Image fades out, moves UP, and scales down
         const progress = (scrollY - exitStartScroll) / (exitEndScroll - exitStartScroll);
-        currentOpacity = Math.max(0, 1 - progress); // Opacity goes from 1 to 0
-        currentBlur = maxBlur * progress; // Blur goes from 0 to maxBlur
-        currentIndex = numImages - 1; // Keep the last image during exit animation
+        currentOpacity = Math.max(0, 1 - progress); 
+        currentBlur = 0; 
+        currentIndex = numImages - 1; 
+        currentTranslateY = 0 - (100 * progress); // Moves from 0px to -100px (upwards)
+        currentScale = 1 - (0.2 * progress); // Scales from 1 to 0.8
       } else if (scrollY >= exitEndScroll) {
-        // After exit phase: Image is fully blurred and transparent
+        // After exit phase: Image is fully transparent, above, and scaled down (reset state)
         currentOpacity = 0;
-        currentBlur = maxBlur;
-        currentIndex = numImages - 1; // Stays on the last image's state
+        currentBlur = 0; 
+        currentIndex = numImages - 1;
+        currentTranslateY = -100; // Off-screen above
+        currentScale = 0.8; 
       }
 
       // Update state
       setImageWrapperOpacity(Math.min(1, Math.max(0, currentOpacity)));
-      setImageBlurAmount(Math.min(maxBlur, Math.max(0, currentBlur)));
+      setImageBlurAmount(Math.min(maxBlur, Math.max(0, currentBlur))); 
       setInteractiveImageIndex(currentIndex);
+      setImageTranslateY(currentTranslateY); 
+      setImageScale(currentScale); 
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [numImages]); // numImages is the only dependency that changes the core logic
+  }, [numImages]);
 
-  // Preload images for smoother transitions
   useEffect(() => {
     images.forEach(imageSrc => {
       const img = new Image();
@@ -128,29 +137,13 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
     });
   }, [images]);
 
-  // Calculate dynamic minHeight for interactiveSectionRef
-  // This ensures the container creates enough scrollable space for all animation phases.
-  // We need enough space for:
-  // 1. Scrolling past the 'Cozy Stays' text (entry phase)
-  // 2. The interactive phase (image changes)
-  // 3. Scrolling before 'Experience the future' text (exit phase)
-  const INTERACTIVE_CONTENT_SCROLL_BUFFER_VH = 100; // Additional scroll before/after for better feel
-  const ANIMATION_DURATION_VH = 150; // The original interactive phase duration
-
-  // The total height should be enough to allow the full entry + interactive + exit scroll.
-  // entryStartScroll to interactiveEndScroll roughly defines the main interactive scroll range.
-  // We need to ensure interactiveSectionRef has enough height to cover the scroll range from
-  // fixTriggerRef.offsetTop + fixTriggerRef.offsetHeight up to unfixTriggerRef.offsetTop.
-  // Plus, some buffer for entry/exit animation.
-  // This is a rough estimation, fine-tuning might be needed after testing.
+  const INTERACTIVE_CONTENT_SCROLL_BUFFER_VH = 100;
+  const ANIMATION_DURATION_VH = 150;
   const interactiveSectionMinHeight = `${ANIMATION_DURATION_VH + INTERACTIVE_CONTENT_SCROLL_BUFFER_VH * 2}vh`;
 
-
-  // Common class names
   const interactiveImageClassName = "w-[700px] h-auto md:w-[900px]";
   const smallImageContainerClassName = "block w-full max-w-[250px] h-[150px] md:max-w-[550px] md:h-[370px]";
   const largeImageContainerClassName = "max-w-[600px] w-full h-[300px] md:h-[500px]";
-
 
   return (
     <div>
@@ -158,9 +151,8 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
       <CheckHubithat />
       <BrandSection />
 
-      {/* Main title section - This acts as the visual cue for the interactive section's start */}
       <div
-        ref={fixTriggerRef} // This ref now marks the beginning of the interactive scroll
+        ref={fixTriggerRef}
         className="flex flex-col items-center justify-center px-4 bg-white py-16"
       >
         <h1 className="text-2xl md:text-4xl font-semibold text-black text-center mb-4">
@@ -171,57 +163,47 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
         </span>
       </div>
 
-      {/* Interactive image section container */}
-      {/* This div provides the actual scrollable height for the animation */}
       <div
         ref={interactiveSectionRef}
         style={{ minHeight: interactiveSectionMinHeight }}
         className="relative w-full flex items-center justify-center bg-white"
       >
-        {/* The image wrapper is always fixed to the viewport when this section is active.
-            Its visibility is controlled by opacity and blur. */}
         <div
           className="image-wrapper"
           style={{
-            position: 'fixed', // Always fixed
+            position: 'fixed',
             top: '50%',
             left: '50%',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 999, // Ensure it's above other content
+            transform: `translate(-50%, calc(-50% + ${imageTranslateY}px)) scale(${imageScale})`,
+            zIndex: 999,
             textAlign: 'center',
-            width: 'auto', // Let image determine its width
+            width: 'auto',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             opacity: imageWrapperOpacity,
-            // Disable pointer events when transparent to allow interaction with content behind
             pointerEvents: imageWrapperOpacity > 0.01 ? 'auto' : 'none',
-            // Smooth transitions for opacity and filter
-            transition: 'opacity 0.3s ease-out, filter 0.3s ease-out',
+            transition: 'opacity 0.3s ease-out, transform 0.3s ease-out',
           }}
         >
-          {/* The image itself */}
           <img
             src={images[Math.floor(interactiveImageIndex)]}
             alt="Scroll Image"
             className={interactiveImageClassName}
             style={{
               filter: `blur(${imageBlurAmount}px)`,
-              transition: 'filter 0.3s ease-out', // Only filter transition here as opacity is on wrapper
+              transition: 'filter 0.3s ease-out',
             }}
           />
         </div>
       </div>
 
-      {/* Content after interactive image */}
-      {/* This div's top edge defines the end of the interactive animation. */}
       <div
-        ref={unfixTriggerRef} // This ref now marks the end of the interactive scroll / start of next content
+        ref={unfixTriggerRef}
         className={`
           flex flex-col items-center justify-center w-full max-w-[1980px]
           py-10 px-4 mx-auto bg-gray-100 gap-y-5 md:gap-y-16
         `}
-        // No paddingTop needed here, as interactiveSectionRef's minHeight provides the space.
       >
         <div
           className="flex flex-wrap justify-between w-full max-w-[1199px] gap-x-24 gap-y-5"
