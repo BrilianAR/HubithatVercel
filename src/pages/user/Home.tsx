@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { motion } from "framer-motion";
+//import { motion } from "framer-motion";
 import ContactPage from "../../components/ui/ContactPage";
 import Button from "../../components/ui/Button";
 import BrandSection from "../../components/ui/BrandSelection";
@@ -41,7 +41,7 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
   const interactiveSectionRef = useRef<HTMLDivElement>(null);
   const currentImageRef = useRef<HTMLImageElement>(null);
   const fixTriggerRef = useRef<HTMLDivElement>(null); // Ref untuk tulisan "Discover a New Way..."
-  const unfixTriggerRef = useRef<HTMLDivElement>(null); // Ref untuk tulisan setelah gambar interaktif
+  const unfixTriggerRef = useRef<HTMLDivElement>(null); // Ref for the element where animation should stop
 
   const updateInteractiveImage = useCallback(() => {
     setIsLocked(true);
@@ -73,6 +73,14 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
         return;
       }
 
+      // Only allow image change when not past the unfixTriggerRef
+      if (unfixTriggerRef.current) {
+        const unfixRect = unfixTriggerRef.current.getBoundingClientRect();
+        if (unfixRect.top <= 0) { // If the unfix trigger is already at or above the top of the viewport
+          return; // Stop interactive image changes
+        }
+      }
+
       if (e.deltaY > 0 && interactiveImageIndex < numImages - 1) {
         setInteractiveImageIndex(prevIndex => prevIndex + 1);
         updateInteractiveImage();
@@ -94,21 +102,22 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
 
       const fixRect = fixTriggerRef.current.getBoundingClientRect();
       const unfixRect = unfixTriggerRef.current.getBoundingClientRect();
+      // Removed: const interactiveSectionRect = interactiveSectionRef.current.getBoundingClientRect();
 
       // Determine fixing state
-      const shouldFixNow = fixRect.bottom <= 0 && unfixRect.top >= window.innerHeight;
-      const shouldUnfixNow = fixRect.bottom > 0 || unfixRect.top <= 0;
+      const shouldFixNow = fixRect.bottom <= 0 && unfixRect.top >= window.innerHeight; // Fixed if fixTrigger passed and unfixTrigger not yet visible at top
+      const shouldUnfixNow = unfixRect.top <= window.innerHeight * 0.5; // Unfix when the top of unfixTriggerRef is in the middle of the viewport (or higher)
 
       if (shouldFixNow && !isWrapperFixed) {
         setIsWrapperFixed(true);
       } else if (shouldUnfixNow && isWrapperFixed) {
-        // Reset index only if scrolling back up PAST the fixTriggerRef
-        // or if scrolling entirely past the interactive section
-        if (fixRect.bottom > 0 || unfixRect.top <= 0) {
-          setInteractiveImageIndex(0);
-        }
-        setIsWrapperFixed(false); // Changed order to unfix first
+        setIsWrapperFixed(false);
+      } else if (fixRect.bottom > 0 && isWrapperFixed) {
+        // If scrolling back up and fixTriggerRef is visible again, unfix
+        setIsWrapperFixed(false);
+        setInteractiveImageIndex(0); // Reset index when unfixing by scrolling up
       }
+
 
       // --- Logic for Opacity and Blur ---
       let currentOpacity = 0;
@@ -129,11 +138,11 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
         const scrollDistance = window.scrollY;
 
         if (scrollDistance >= startAnimationScrollTop && scrollDistance < endAnimationScrollTop) {
-            entryProgress = (scrollDistance - startAnimationScrollTop) / (endAnimationScrollTop - startAnimationScrollTop);
+          entryProgress = (scrollDistance - startAnimationScrollTop) / (endAnimationScrollTop - startAnimationScrollTop);
         } else if (scrollDistance >= endAnimationScrollTop) {
-            entryProgress = 1; // Fully visible
+          entryProgress = 1; // Fully visible
         } else {
-            entryProgress = 0; // Still hidden
+          entryProgress = 0; // Still hidden
         }
 
         currentOpacity = entryProgress;
@@ -144,46 +153,40 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
       }
       // =====================================================================
       // PHASE B: Image IS fixed (Stays in the middle of the screen)
-      // This is the phase where the image remains clear, then fades-out and blurs-in
+      // This is the phase where the image remains clear, then fades-out
       // as the unfixTriggerRef approaches
       // =====================================================================
       else { // isWrapperFixed === true
-        currentOpacity = 1;
-        currentBlur = 0;
+        // Start fade out when unfixTriggerRef is at 70% from top of viewport
+        const fadeOutStartPoint = window.innerHeight * 0.7;
+        // Finish fade out when unfixTriggerRef is at 20% from top of viewport
+        const fadeOutEndPoint = window.innerHeight * 0.2;
 
-        // Start fade out and blur in, relative to unfixTriggerRef's top
-        const fadeOutStartPoint = window.innerHeight * 0.7; // Start fade out when unfixTriggerRef is at 70% from top
-        const fadeOutEndPoint = window.innerHeight * 0.2; // Finish fade out when unfixTriggerRef is at 20% from top
-
-        const blurInStartPoint = window.innerHeight * 0.5; // Start blur in when unfixTriggerRef is at 50% from top
-        const blurInEndPoint = window.innerHeight * 0.1; // Finish blur in when unfixTriggerRef is at 10% from top
-
-        // Opacity Logic (Fade Out)
         if (unfixRect.top <= fadeOutStartPoint && unfixRect.top >= fadeOutEndPoint) {
           const opacityProgress = 1 - (unfixRect.top - fadeOutEndPoint) / (fadeOutStartPoint - fadeOutEndPoint);
           currentOpacity = Math.max(0, 1 - opacityProgress);
+          currentBlur = maxBlur * opacityProgress; // Blur in as it fades out
+          currentBlur = Math.min(maxBlur, currentBlur);
         } else if (unfixRect.top < fadeOutEndPoint) {
           currentOpacity = 0; // Fully hidden
+          currentBlur = 0; // Ensure blur is 0 when fully hidden
+        } else {
+          currentOpacity = 1; // Fully visible (before fadeOutStartPoint)
+          currentBlur = 0; // No blur
         }
-        // else currentOpacity remains 1 (before fadeOutStartPoint)
-
-        // Blur Logic (Blur In)
-        if (unfixRect.top <= blurInStartPoint && unfixRect.top >= blurInEndPoint) {
-            const blurProgress = 1 - (unfixRect.top - blurInEndPoint) / (blurInStartPoint - blurInEndPoint);
-            currentBlur = Math.min(maxBlur, Math.max(0, blurProgress * maxBlur));
-        } else if (unfixRect.top < blurInEndPoint) {
-            currentBlur = maxBlur; // Fully blurred
-        }
-        // else currentBlur remains 0 (before blurInStartPoint)
       }
 
       setImageWrapperOpacity(Math.min(1, Math.max(0, currentOpacity)));
       setImageBlurAmount(Math.min(maxBlur, Math.max(0, currentBlur)));
 
+
       // Logic to control interactive image index based on scroll within the fixed section
       if (isWrapperFixed && interactiveSectionRef.current && unfixTriggerRef.current) {
         const fixedSectionStartScroll = interactiveSectionRef.current.offsetTop;
-        const fixedSectionEndScroll = unfixTriggerRef.current.offsetTop - window.innerHeight; // Adjusted to end where unfixTriggerRef hits top
+        // The effective end of the scroll for image transitions within the fixed state
+        // should be when the unfixTriggerRef hits the top of the viewport.
+        const fixedSectionEndScroll = unfixTriggerRef.current.offsetTop - window.innerHeight * 0.5; // Stop image changes earlier
+
         const totalScrollRangeInFixed = fixedSectionEndScroll - fixedSectionStartScroll;
 
         if (totalScrollRangeInFixed > 0) {
@@ -196,6 +199,13 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
         }
       } else if (!isWrapperFixed && interactiveSectionRef.current && window.scrollY < interactiveSectionRef.current.offsetTop) {
         // When not fixed and above the interactive section, reset to 0
+        setInteractiveImageIndex(0);
+      } else if (!isWrapperFixed && unfixRect.top <= window.innerHeight * 0.5) {
+        // When unfixed and past the unfix trigger point, ensure no blur and opacity 0
+        setImageBlurAmount(0);
+        setImageWrapperOpacity(0);
+        // We set index to 0 here because the interactive image should effectively be "gone"
+        // and its state shouldn't affect anything once the unfix trigger is passed.
         setInteractiveImageIndex(0);
       }
     };
@@ -232,14 +242,9 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
       <BrandSection />
 
       {/* Main title section */}
-      <motion.div
+      <div
         ref={fixTriggerRef}
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        viewport={{ once: true, amount: 0.2 }}
-        // **PERBAIKAN LEBIH LANJUT: Hapus pt-16 sepenuhnya, dan pastikan pb-0**
-        className="flex flex-col items-center justify-center px-4 bg-white" // Dihapus pt-16, hanya pb-0
+        className="flex flex-col items-center justify-center px-4 bg-white"
       >
         <h1 className="text-2xl md:text-4xl font-semibold text-black dark:text-white text-center mb-4">
           Discover a New Way to Stay in the City
@@ -247,18 +252,15 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
         <span className="text-2xl md:text-[6rem] font-bold leading-tight md:leading-none text-center">
           Cozy Stays on Roofgarden
         </span>
-      </motion.div>
+      </div>
 
       {/* Interactive image section */}
       <div
         ref={interactiveSectionRef}
         style={{ minHeight: interactiveSectionMinHeight }}
-        // **PERBAIKAN LEBIH LANJUT: Hapus pb-10, hanya pt-0**
-        className="relative w-full flex items-center justify-center bg-white" // Dihapus py-10 sepenuhnya
+        className="relative w-full flex items-center justify-center bg-white"
       >
-        <motion.div
-          animate={{ opacity: imageWrapperOpacity }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+        <div
           className={`
             image-wrapper
             ${isWrapperFixed ? 'fixed' : ''}
@@ -274,46 +276,34 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            opacity: imageWrapperOpacity, // Directly apply opacity here
             pointerEvents: imageWrapperOpacity > 0.01 ? 'auto' : 'none',
           }}
         >
-          <motion.img
+          <img
             ref={currentImageRef}
             key={interactiveImageIndex}
             src={images[interactiveImageIndex]}
             alt="Scroll Image"
             className={interactiveImageClassName}
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              filter: `blur(${imageBlurAmount}px)`
-            }}
-            exit={{ opacity: 0, scale: 0.5 }}
-            transition={{
-              type: "spring",
-              stiffness: 180,
-              damping: 15,
+            style={{
+              filter: `blur(${imageBlurAmount}px)` // Directly apply blur here
             }}
           />
-        </motion.div>
+        </div>
       </div>
 
       {/* Content after interactive image */}
       <div
+        ref={unfixTriggerRef} 
         className={`
           flex flex-col items-center justify-center w-full max-w-[1980px]
           py-10 px-4 mx-auto bg-gray-100 gap-y-5 md:gap-y-16
         `}
         style={{ paddingTop: isWrapperFixed ? `${imageHeight + 80}px` : '0px' }}
       >
-        <motion.div
-          ref={unfixTriggerRef}
+        <div
           className="flex flex-wrap justify-between w-full max-w-[1199px] gap-x-24 gap-y-5"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <span className="block w-full max-w-[300px] mt-3 text-base md:text-xl text-gray-800 leading-[30px]">
             <p>Experience the future of urban hospitality with HubiThat's innovative roofgarden sanctuaries.</p>
@@ -321,13 +311,9 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
           <span className="block w-full max-w-[800px] text-3xl md:text-5xl font-medium text-gray-800 md:leading-[65px]">
             <p>HubiThat: Redefining Urban Living with Roof Forest built for Megapolitans to recharge the soul and find calmness ASAP</p>
           </span>
-        </motion.div>
-        <motion.div
+        </div>
+        <div
           className="flex flex-wrap w-full max-w-[1200px] justify-center items-center md:gap-x-24 gap-x-4 md:gap-y-8"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
         >
           {/* Changed this line to use the variable */}
           <span className={smallImageContainerClassName}>
@@ -337,7 +323,7 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
           <span className={smallImageContainerClassName}>
             <img src={image2} alt="Green Space" className="w-full h-full object-cover rounded-lg" />
           </span>
-        </motion.div>
+        </div>
       </div>
 
       <Test />
@@ -367,8 +353,8 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
             </div>
 
             <div className="flex flex-col md:flex-row justify-center items-center gap-y-4 md:gap-y-8 py-10 md:py-0">
-              {/* Changed this line to use the variable */}
-              <div className={largeImageContainerClassName + " order-2 md:order-1"}> {/* Combined with template literal for conditional order */}
+              {/* Corrected: Use template literal */}
+              <div className={`${largeImageContainerClassName} order-2 md:order-1`}>
                 <img src={image4} alt="Green rooftop garden view" className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col justify-center items-stretch max-w-[600px] w-full md:px-20 gap-4 md:gap-12 order-1 md:order-2">
