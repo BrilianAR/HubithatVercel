@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-//import { motion } from "framer-motion";
+//import { motion } from "framer-motion"; // If you plan to use framer-motion for smooth animations, keep this.
 import ContactPage from "../../components/ui/ContactPage";
 import Button from "../../components/ui/Button";
 import BrandSection from "../../components/ui/BrandSelection";
@@ -32,200 +32,95 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
   const numImages = images.length;
 
   const [interactiveImageIndex, setInteractiveImageIndex] = useState<number>(0);
-  const [isLocked, setIsLocked] = useState<boolean>(false);
-  const [isWrapperFixed, setIsWrapperFixed] = useState<boolean>(false);
-  const [imageHeight, setImageHeight] = useState<number>(0);
   const [imageWrapperOpacity, setImageWrapperOpacity] = useState<number>(0);
-  const [imageBlurAmount, setImageBlurAmount] = useState<number>(5); // State baru untuk mengontrol blur (dalam piksel)
+  const [imageBlurAmount, setImageBlurAmount] = useState<number>(5); // Start blurred
 
   const interactiveSectionRef = useRef<HTMLDivElement>(null);
-  const currentImageRef = useRef<HTMLImageElement>(null);
-  const fixTriggerRef = useRef<HTMLDivElement>(null); // Ref untuk tulisan "Discover a New Way..."
-  const unfixTriggerRef = useRef<HTMLDivElement>(null); // Ref for the element where animation should stop
-
-  const updateInteractiveImage = useCallback(() => {
-    setIsLocked(true);
-    setTimeout(() => {
-      setIsLocked(false);
-    }, 300);
-  }, []);
-
-  useEffect(() => {
-    if (currentImageRef.current) {
-      setImageHeight(currentImageRef.current.offsetHeight);
-    }
-    const handleResize = () => {
-      if (currentImageRef.current) {
-        setImageHeight(currentImageRef.current.offsetHeight);
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [interactiveImageIndex]);
-
-  useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      if (!isWrapperFixed) {
-        return;
-      }
-      if (isLocked) {
-        e.preventDefault();
-        return;
-      }
-
-      // Only allow image change when not past the unfixTriggerRef
-      if (unfixTriggerRef.current) {
-        const unfixRect = unfixTriggerRef.current.getBoundingClientRect();
-        if (unfixRect.top <= 0) { // If the unfix trigger is already at or above the top of the viewport
-          return; // Stop interactive image changes
-        }
-      }
-
-      if (e.deltaY > 0 && interactiveImageIndex < numImages - 1) {
-        setInteractiveImageIndex(prevIndex => prevIndex + 1);
-        updateInteractiveImage();
-      } else if (e.deltaY < 0 && interactiveImageIndex > 0) {
-        setInteractiveImageIndex(prevIndex => prevIndex - 1);
-        updateInteractiveImage();
-      }
-    };
-
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    return () => {
-      window.removeEventListener('wheel', handleWheel);
-    };
-  }, [interactiveImageIndex, isLocked, isWrapperFixed, numImages, updateInteractiveImage]);
+  const fixTriggerRef = useRef<HTMLDivElement>(null); // Marks the start of the section controlling the image
+  const unfixTriggerRef = useRef<HTMLDivElement>(null); // Marks the end of the section controlling the image (where content below starts)
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!fixTriggerRef.current || !unfixTriggerRef.current || !interactiveSectionRef.current) return;
+      if (!interactiveSectionRef.current || !fixTriggerRef.current || !unfixTriggerRef.current) return;
 
-      const fixRect = fixTriggerRef.current.getBoundingClientRect();
-      const unfixRect = unfixTriggerRef.current.getBoundingClientRect();
-      // Removed: const interactiveSectionRect = interactiveSectionRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const scrollY = window.scrollY;
 
-      // Determine fixing state
-      const shouldFixNow = fixRect.bottom <= 0 && unfixRect.top >= window.innerHeight; // Fixed if fixTrigger passed and unfixTrigger not yet visible at top
-      const shouldUnfixNow = unfixRect.top <= window.innerHeight * 0.5; // Unfix when the top of unfixTriggerRef is in the middle of the viewport (or higher)
+      const maxBlur = 5; // Maximum blur amount
 
-      if (shouldFixNow && !isWrapperFixed) {
-        setIsWrapperFixed(true);
-      } else if (shouldUnfixNow && isWrapperFixed) {
-        setIsWrapperFixed(false);
-      } else if (fixRect.bottom > 0 && isWrapperFixed) {
-        // If scrolling back up and fixTriggerRef is visible again, unfix
-        setIsWrapperFixed(false);
-        setInteractiveImageIndex(0); // Reset index when unfixing by scrolling up
-      }
-
-
-      // --- Logic for Opacity and Blur ---
       let currentOpacity = 0;
-      let currentBlur = 0;
-      const maxBlur = 5;
+      let currentBlur = maxBlur;
+      let currentIndex = 0;
 
-      // =====================================================================
-      // PHASE A: Image NOT fixed (Still in document flow, moving up)
-      // This is the phase where the image will fade-in and blur-out as it scrolls down
-      // =====================================================================
-      if (!isWrapperFixed) {
-        // Animation starts when the top of the interactive section is at 80% viewport height
-        const startAnimationScrollTop = interactiveSectionRef.current.offsetTop - window.innerHeight * 0.8;
-        // Animation ends when the top of the interactive section is at 0% viewport height (just enters fixed zone)
-        const endAnimationScrollTop = interactiveSectionRef.current.offsetTop;
+      // Define scroll points for different animation phases
+      // Entry Phase: Image fades in and unblurs
+      // Starts blurring in when the bottom of 'fixTriggerRef' is halfway up the viewport
+      const entryStartScroll = fixTriggerRef.current.offsetTop + fixTriggerRef.current.offsetHeight - viewportHeight / 2;
+      // Ends blurring in when the bottom of 'fixTriggerRef' is at the top of the viewport,
+      // and the interactiveSectionRef is clearly taking over.
+      const entryEndScroll = fixTriggerRef.current.offsetTop + fixTriggerRef.current.offsetHeight;
 
-        let entryProgress = 0;
-        const scrollDistance = window.scrollY;
+      // Interactive Phase: Image is fully visible, no blur, index changes
+      const interactiveStartScroll = entryEndScroll; // Begins right after entry ends
+      // Ends when the 'unfixTriggerRef' starts appearing from the bottom of the viewport
+      const interactiveEndScroll = unfixTriggerRef.current.offsetTop - viewportHeight;
 
-        if (scrollDistance >= startAnimationScrollTop && scrollDistance < endAnimationScrollTop) {
-          entryProgress = (scrollDistance - startAnimationScrollTop) / (endAnimationScrollTop - startAnimationScrollTop);
-        } else if (scrollDistance >= endAnimationScrollTop) {
-          entryProgress = 1; // Fully visible
+      // Exit Phase: Image fades out and blurs
+      const exitStartScroll = interactiveEndScroll; // Begins right after interactive phase ends
+      // Ends when the 'unfixTriggerRef' is halfway up the viewport
+      const exitEndScroll = unfixTriggerRef.current.offsetTop - viewportHeight / 2;
+
+      // --- Animation Logic based on Scroll Position ---
+
+      if (scrollY < entryStartScroll) {
+        // Before entry phase: Image is fully blurred and transparent
+        currentOpacity = 0;
+        currentBlur = maxBlur;
+        currentIndex = 0;
+      } else if (scrollY >= entryStartScroll && scrollY < entryEndScroll) {
+        // Entry phase: Image fades in and unblurs
+        const progress = (scrollY - entryStartScroll) / (entryEndScroll - entryStartScroll);
+        currentOpacity = progress;
+        currentBlur = maxBlur * (1 - progress);
+        currentIndex = 0; // Keep the first image during entry animation
+      } else if (scrollY >= interactiveStartScroll && scrollY < interactiveEndScroll) {
+        // Interactive phase: Image is fully visible, no blur, index changes
+        currentOpacity = 1;
+        currentBlur = 0;
+
+        const totalInteractiveScrollRange = interactiveEndScroll - interactiveStartScroll;
+        if (totalInteractiveScrollRange > 0) {
+          const scrollProgress = (scrollY - interactiveStartScroll) / totalInteractiveScrollRange;
+          currentIndex = scrollProgress * (numImages - 1);
         } else {
-          entryProgress = 0; // Still hidden
+          currentIndex = 0;
         }
-
-        currentOpacity = entryProgress;
-        currentBlur = maxBlur - (entryProgress * maxBlur);
-        currentBlur = Math.max(0, currentBlur); // Ensure blur doesn't go negative
-        currentOpacity = Math.min(1, Math.max(0, currentOpacity)); // Clamp opacity
-
-      }
-      // =====================================================================
-      // PHASE B: Image IS fixed (Stays in the middle of the screen)
-      // This is the phase where the image remains clear, then fades-out
-      // as the unfixTriggerRef approaches
-      // =====================================================================
-      else { // isWrapperFixed === true
-        // Start fade out when unfixTriggerRef is at 70% from top of viewport
-        const fadeOutStartPoint = window.innerHeight * 0.7;
-        // Finish fade out when unfixTriggerRef is at 20% from top of viewport
-        const fadeOutEndPoint = window.innerHeight * 0.2;
-
-        if (unfixRect.top <= fadeOutStartPoint && unfixRect.top >= fadeOutEndPoint) {
-          const opacityProgress = 1 - (unfixRect.top - fadeOutEndPoint) / (fadeOutStartPoint - fadeOutEndPoint);
-          currentOpacity = Math.max(0, 1 - opacityProgress);
-          currentBlur = maxBlur * opacityProgress; // Blur in as it fades out
-          currentBlur = Math.min(maxBlur, currentBlur);
-        } else if (unfixRect.top < fadeOutEndPoint) {
-          currentOpacity = 0; // Fully hidden
-          currentBlur = 0; // Ensure blur is 0 when fully hidden
-        } else {
-          currentOpacity = 1; // Fully visible (before fadeOutStartPoint)
-          currentBlur = 0; // No blur
-        }
+      } else if (scrollY >= exitStartScroll && scrollY < exitEndScroll) {
+        // Exit phase: Image fades out and blurs back in
+        const progress = (scrollY - exitStartScroll) / (exitEndScroll - exitStartScroll);
+        currentOpacity = Math.max(0, 1 - progress); // Opacity goes from 1 to 0
+        currentBlur = maxBlur * progress; // Blur goes from 0 to maxBlur
+        currentIndex = numImages - 1; // Keep the last image during exit animation
+      } else if (scrollY >= exitEndScroll) {
+        // After exit phase: Image is fully blurred and transparent
+        currentOpacity = 0;
+        currentBlur = maxBlur;
+        currentIndex = numImages - 1; // Stays on the last image's state
       }
 
+      // Update state
       setImageWrapperOpacity(Math.min(1, Math.max(0, currentOpacity)));
       setImageBlurAmount(Math.min(maxBlur, Math.max(0, currentBlur)));
-
-
-      // Logic to control interactive image index based on scroll within the fixed section
-      if (isWrapperFixed && interactiveSectionRef.current && unfixTriggerRef.current) {
-        const fixedSectionStartScroll = interactiveSectionRef.current.offsetTop;
-        // The effective end of the scroll for image transitions within the fixed state
-        // should be when the unfixTriggerRef hits the top of the viewport.
-        const fixedSectionEndScroll = unfixTriggerRef.current.offsetTop - window.innerHeight * 0.5; // Stop image changes earlier
-
-        const totalScrollRangeInFixed = fixedSectionEndScroll - fixedSectionStartScroll;
-
-        if (totalScrollRangeInFixed > 0) {
-          const currentScrollInFixed = window.scrollY - fixedSectionStartScroll;
-          let scrollProgress = Math.max(0, Math.min(1, currentScrollInFixed / totalScrollRangeInFixed));
-          const calculatedIndex = Math.floor(scrollProgress * numImages);
-          setInteractiveImageIndex(Math.min(numImages - 1, Math.max(0, calculatedIndex)));
-        } else {
-          setInteractiveImageIndex(0);
-        }
-      } else if (!isWrapperFixed && interactiveSectionRef.current && window.scrollY < interactiveSectionRef.current.offsetTop) {
-        // When not fixed and above the interactive section, reset to 0
-        setInteractiveImageIndex(0);
-      } else if (!isWrapperFixed && unfixRect.top <= window.innerHeight * 0.5) {
-        // When unfixed and past the unfix trigger point, ensure no blur and opacity 0
-        setImageBlurAmount(0);
-        setImageWrapperOpacity(0);
-        // We set index to 0 here because the interactive image should effectively be "gone"
-        // and its state shouldn't affect anything once the unfix trigger is passed.
-        setInteractiveImageIndex(0);
-      }
+      setInteractiveImageIndex(currentIndex);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [numImages, isWrapperFixed]);
+  }, [numImages]); // numImages is the only dependency that changes the core logic
 
-  // --- New useEffect for body overflow hidden ---
-  useEffect(() => {
-    if (isWrapperFixed) {
-      document.body.classList.add('overflow-hidden-when-fixed');
-    } else {
-      document.body.classList.remove('overflow-hidden-when-fixed');
-    }
-  }, [isWrapperFixed]);
-  // --- End new useEffect ---
-
+  // Preload images for smoother transitions
   useEffect(() => {
     images.forEach(imageSrc => {
       const img = new Image();
@@ -233,14 +128,26 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
     });
   }, [images]);
 
-  // Kita bisa mengurangi ini lebih jauh jika masih ada ruang kosong yang terlalu banyak
-  const INTERACTIVE_SECTION_SCROLL_DURATION_VH = 150; // Mengurangi dari 200
-  const interactiveSectionMinHeight = `${INTERACTIVE_SECTION_SCROLL_DURATION_VH}vh`;
+  // Calculate dynamic minHeight for interactiveSectionRef
+  // This ensures the container creates enough scrollable space for all animation phases.
+  // We need enough space for:
+  // 1. Scrolling past the 'Cozy Stays' text (entry phase)
+  // 2. The interactive phase (image changes)
+  // 3. Scrolling before 'Experience the future' text (exit phase)
+  const INTERACTIVE_CONTENT_SCROLL_BUFFER_VH = 100; // Additional scroll before/after for better feel
+  const ANIMATION_DURATION_VH = 150; // The original interactive phase duration
 
-  // Define className for motion.img as a variable
+  // The total height should be enough to allow the full entry + interactive + exit scroll.
+  // entryStartScroll to interactiveEndScroll roughly defines the main interactive scroll range.
+  // We need to ensure interactiveSectionRef has enough height to cover the scroll range from
+  // fixTriggerRef.offsetTop + fixTriggerRef.offsetHeight up to unfixTriggerRef.offsetTop.
+  // Plus, some buffer for entry/exit animation.
+  // This is a rough estimation, fine-tuning might be needed after testing.
+  const interactiveSectionMinHeight = `${ANIMATION_DURATION_VH + INTERACTIVE_CONTENT_SCROLL_BUFFER_VH * 2}vh`;
+
+
+  // Common class names
   const interactiveImageClassName = "w-[700px] h-auto md:w-[900px]";
-
-  // Define className for image containers as variables
   const smallImageContainerClassName = "block w-full max-w-[250px] h-[150px] md:max-w-[550px] md:h-[370px]";
   const largeImageContainerClassName = "max-w-[600px] w-full h-[300px] md:h-[500px]";
 
@@ -251,12 +158,12 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
       <CheckHubithat />
       <BrandSection />
 
-      {/* Main title section */}
+      {/* Main title section - This acts as the visual cue for the interactive section's start */}
       <div
-        ref={fixTriggerRef}
-        className="flex flex-col items-center justify-center px-4 bg-white"
+        ref={fixTriggerRef} // This ref now marks the beginning of the interactive scroll
+        className="flex flex-col items-center justify-center px-4 bg-white py-16"
       >
-        <h1 className="text-2xl md:text-4xl font-semibold text-black dark:text-white text-center mb-4">
+        <h1 className="text-2xl md:text-4xl font-semibold text-black text-center mb-4">
           Discover a New Way to Stay in the City
         </h1>
         <span className="text-2xl md:text-[6rem] font-bold leading-tight md:leading-none text-center">
@@ -264,53 +171,57 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
         </span>
       </div>
 
-      {/* Interactive image section */}
+      {/* Interactive image section container */}
+      {/* This div provides the actual scrollable height for the animation */}
       <div
         ref={interactiveSectionRef}
         style={{ minHeight: interactiveSectionMinHeight }}
         className="relative w-full flex items-center justify-center bg-white"
       >
+        {/* The image wrapper is always fixed to the viewport when this section is active.
+            Its visibility is controlled by opacity and blur. */}
         <div
-          className={`
-            image-wrapper
-            ${isWrapperFixed ? 'fixed' : ''}
-          `}
+          className="image-wrapper"
           style={{
-            position: isWrapperFixed ? 'fixed' : 'relative',
-            top: isWrapperFixed ? '50%' : 'auto',
-            left: isWrapperFixed ? '50%' : 'auto',
-            transform: isWrapperFixed ? 'translate(-50%, -50%)' : 'none',
-            zIndex: isWrapperFixed ? 999 : 'auto',
+            position: 'fixed', // Always fixed
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 999, // Ensure it's above other content
             textAlign: 'center',
-            width: isWrapperFixed ? 'auto' : '100%',
+            width: 'auto', // Let image determine its width
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            opacity: imageWrapperOpacity, // Directly apply opacity here
+            opacity: imageWrapperOpacity,
+            // Disable pointer events when transparent to allow interaction with content behind
             pointerEvents: imageWrapperOpacity > 0.01 ? 'auto' : 'none',
+            // Smooth transitions for opacity and filter
+            transition: 'opacity 0.3s ease-out, filter 0.3s ease-out',
           }}
         >
+          {/* The image itself */}
           <img
-            ref={currentImageRef}
-            key={interactiveImageIndex}
-            src={images[interactiveImageIndex]}
+            src={images[Math.floor(interactiveImageIndex)]}
             alt="Scroll Image"
             className={interactiveImageClassName}
             style={{
-              filter: `blur(${imageBlurAmount}px)` // Directly apply blur here
+              filter: `blur(${imageBlurAmount}px)`,
+              transition: 'filter 0.3s ease-out', // Only filter transition here as opacity is on wrapper
             }}
           />
         </div>
       </div>
 
       {/* Content after interactive image */}
+      {/* This div's top edge defines the end of the interactive animation. */}
       <div
-        ref={unfixTriggerRef}
+        ref={unfixTriggerRef} // This ref now marks the end of the interactive scroll / start of next content
         className={`
           flex flex-col items-center justify-center w-full max-w-[1980px]
           py-10 px-4 mx-auto bg-gray-100 gap-y-5 md:gap-y-16
         `}
-        style={{ paddingTop: isWrapperFixed ? `${imageHeight + 80}px` : '0px' }}
+        // No paddingTop needed here, as interactiveSectionRef's minHeight provides the space.
       >
         <div
           className="flex flex-wrap justify-between w-full max-w-[1199px] gap-x-24 gap-y-5"
@@ -325,11 +236,9 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
         <div
           className="flex flex-wrap w-full max-w-[1200px] justify-center items-center md:gap-x-24 gap-x-4 md:gap-y-8"
         >
-          {/* Changed this line to use the variable */}
           <span className={smallImageContainerClassName}>
             <img src={image1} alt="Rooftop Capsule Hotel" className="w-full h-full object-cover rounded-lg" />
           </span>
-          {/* Changed this line to use the variable */}
           <span className={smallImageContainerClassName}>
             <img src={image2} alt="Green Space" className="w-full h-full object-cover rounded-lg" />
           </span>
@@ -353,7 +262,6 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
                   <Button>Book Now</Button>
                 </div>
               </div>
-              {/* Changed this line to use the variable */}
               <div className={largeImageContainerClassName}>
                 <img src={image3} alt="Rooftop Capsule Hotel exterior" className="w-full h-full object-cover" />
               </div>
@@ -363,7 +271,6 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
             </div>
 
             <div className="flex flex-col md:flex-row justify-center items-center gap-y-4 md:gap-y-8 py-10 md:py-0">
-              {/* Corrected: Use template literal */}
               <div className={`${largeImageContainerClassName} order-2 md:order-1`}>
                 <img src={image4} alt="Green rooftop garden view" className="w-full h-full object-cover" />
               </div>
@@ -405,7 +312,6 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
                   </div>
                 </div>
               </div>
-              {/* Changed this line to use the variable */}
               <div className={largeImageContainerClassName}>
                 <img src={image7} alt="Sustainable hotel features" className="w-full h-full object-cover" />
               </div>
