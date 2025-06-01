@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'; // Import Framer Motion
-import image from '../../assets/image1.png';
-import image2 from '../../assets/image2.jpg';
-import image3 from '../../assets/image3.jpg';
-import image4 from '../../assets/image4.jpg';
+import image from '../../assets/11.jpg';
+import image2 from '../../assets/7.jpg';
+import image3 from '../../assets/6.jpg';
+import image4 from '../../assets/3.jpg';
 
 const LifestyleMatchSection = () => {
   const roomTypes = [

@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "./Button";
-import header from "../../assets/header.png";
-import image1 from "../../assets/image1.png";
-import image2 from "../../assets/image5.jpg";
+import header from "../../assets/1.jpg";
+import image1 from "../../assets/2.jpg";
+import image2 from "../../assets/3.jpg";
+import image3 from "../../assets/4.jpg";
+import image4 from "../../assets/5.jpg";
 
 const HeroSection = () => {
   // State untuk slider
@@ -14,7 +16,9 @@ const HeroSection = () => {
   const sliderImages = [
     { src: header, alt: "Rooftop hotel with green space" },
     { src: image1, alt: "Another rooftop view" },
-    { src: image2, alt: "Third rooftop view" }
+    { src: image2, alt: "Third rooftop view" },
+    { src: image3, alt: "Fourth rooftop view" },
+    { src: image4, alt: "Fifth rooftop view" }
   ];
 
   // Effect untuk autoplay
