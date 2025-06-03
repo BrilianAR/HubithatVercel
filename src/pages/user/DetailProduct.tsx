@@ -2,6 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import { Calendar, Star, MapPin, ChevronRight, Users, Waves, Coffee, Wifi, Car, AirVent, Phone, Clock, LandPlot } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
+import h1 from '../../assets/h1.png';
+import h2 from '../../assets/h2.png';
+import h3 from '../../assets/h3.png';
+import h4 from '../../assets/h4.png';
+import h5 from '../../assets/h5.png';
 
 export default function HotelDetailPage() {
   const [showModal, setShowModal] = useState(false);
@@ -77,32 +82,32 @@ export default function HotelDetailPage() {
     {
       id: 1,
       main: true,
-      src: "https://bobobox-production-assets.s3.ap-southeast-1.amazonaws.com/assets/hotels/bobobox-alun-alun/main-pictures/phpfIiBoB",
+      src: h3,
       alt: "exterior building Hubithat alun alun by Bobobox"
     },
     {
       id: 2,
-      src: "https://bobobox-production-assets.s3.ap-southeast-1.amazonaws.com/assets/hotels/bobobox-alun-alun/main-pictures/phpoLahKG",
+      src: h2,
       alt: "lobby Hubithat alun alun by Bobobox"
     },
     {
       id: 3,
-      src: "https://bobobox-production-assets.s3.ap-southeast-1.amazonaws.com/assets/hotels/bobobox-alun-alun/main-pictures/phpPgGGml",
+      src: h4,
       alt: "bpad Hubithat alun alun by Bobobox"
     },
     {
       id: 4,
-      src: "https://bobobox-production-assets.s3.ap-southeast-1.amazonaws.com/assets/hotels/bobobox-alun-alun/main-pictures/phpfIiBoB",
+      src: h1,
       alt: "bedroom Hubithat alun alun by Bobobox"
     },
     {
       id: 5,
-      src: "https://bobobox-production-assets.s3.ap-southeast-1.amazonaws.com/assets/hotels/bobobox-alun-alun/main-pictures/phpfIiBoB",
+      src: h2,
       alt: "bathroom Hubithat alun alun by Bobobox"
     },
     {
       id: 6,
-      src: "https://bobobox-production-assets.s3.ap-southeast-1.amazonaws.com/assets/hotels/bobobox-alun-alun/main-pictures/phpfIiBoB",
+      src: h5,
       alt: "reception Hubithat alun alun by Bobobox"
     }
   ];
@@ -117,7 +122,7 @@ export default function HotelDetailPage() {
       price: 210000,
       discountPrice: 189000,
       amenities: ["Air Conditioning", "Free WiFi", "Smart TV", "Private Bathroom"],
-      image: "https://bobobox-production-assets.s3.ap-southeast-1.amazonaws.com/assets/hotels/bobobox-alun-alun/main-pictures/phpfIiBoB",
+      image: h1,
       available: 3
     },
     {
@@ -129,7 +134,7 @@ export default function HotelDetailPage() {
       price: 350000,
       discountPrice: 315000,
       amenities: ["Air Conditioning", "Free WiFi", "Smart TV", "Private Bathroom", "City View"],
-      image: "https://bobobox-production-assets.s3.ap-southeast-1.amazonaws.com/assets/hotels/bobobox-alun-alun/main-pictures/phpfIiBoB",
+      image: h3,
       available: 1
     },
     {
@@ -141,7 +146,7 @@ export default function HotelDetailPage() {
       price: 520000,
       discountPrice: 468000,
       amenities: ["Air Conditioning", "Free WiFi", "Smart TV", "Private Bathroom", "Balcony"],
-      image: "https://bobobox-production-assets.s3.ap-southeast-1.amazonaws.com/assets/hotels/bobobox-alun-alun/main-pictures/phpfIiBoB",
+      image: h5,
       available: 0
     }
   ];

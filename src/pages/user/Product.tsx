@@ -2,6 +2,13 @@ import { useState, useEffect, useMemo } from 'react';
 import { Calendar, MapPin, Clock, Users } from 'lucide-react';
 import logo from "../../assets/hubithat-logo.png";
 import { Link } from 'react-router-dom';
+import h1 from '../../assets/h1.png';
+import h2 from '../../assets/h2.png';
+import h3 from '../../assets/h3.png';
+import h4 from '../../assets/h4.png';
+import h5 from '../../assets/h5.png';
+
+
 
 // LocationCard Component
 const LocationCard = ({ location, rateType } : any) => {
@@ -688,8 +695,8 @@ const CheckHubithat = ({
 export default function ProductCards() {
   // Generate location data with maxGuests
   const generateLocationData = () => {
-    const baseImageUrl =
-      'https://bobobox-production-assets.s3.ap-southeast-1.amazonaws.com/landing-page/v4/bobobox/branch-location';
+    // const baseImageUrl =
+    //   'https://bobobox-production-assets.s3.ap-southeast-1.amazonaws.com/landing-page/v4/bobobox/branch-location';
     return [
       {
         id: 1,
@@ -701,11 +708,11 @@ export default function ProductCards() {
         maxGuests: 2,
         nearbyAttractions: ['2 min to Alun-Alun Kota Bandung', 'Near Braga and Asia Afrika Street'],
         images: [
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/1.webp`,
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/2.webp`,
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/3.webp`,
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/4.webp`,
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/5.webp`,
+          `${h5}`,
+          `${h3}`,
+          `${h4}`,
+          `${h1}`,
+          `${h2}`,
         ],
       },
       {
@@ -718,11 +725,11 @@ export default function ProductCards() {
         maxGuests: 3,
         nearbyAttractions: ['5 min to Dago Street', 'Near ITB Campus and Cikapayang Park'],
         images: [
-          `${baseImageUrl}/1.+Bandung/2.+Dago/1.webp`,
-          `${baseImageUrl}/1.+Bandung/2.+Dago/2.webp`,
-          `${baseImageUrl}/1.+Bandung/2.+Dago/3.webp`,
-          `${baseImageUrl}/1.+Bandung/2.+Dago/4.webp`,
-          `${baseImageUrl}/1.+Bandung/2.+Dago/5.webp`,
+          `${h1}`,
+          `${h2}`,
+          `${h3}`,
+          `${h4}`,
+          `${h5}`,
         ],
       },
       {
@@ -735,11 +742,11 @@ export default function ProductCards() {
         maxGuests: 2,
         nearbyAttractions: ['10 min to Pasteur Toll Gate', 'Near Husein Sastranegara Airport'],
         images: [
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/1.webp`,
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/2.webp`,
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/3.webp`,
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/4.webp`,
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/5.webp`,
+          `${h1}`,
+          `${h4}`,
+          `${h5}`,
+          `${h2}`,
+          `${h3}`,
         ],
       },
       {
@@ -752,10 +759,10 @@ export default function ProductCards() {
         maxGuests: 4,
         nearbyAttractions: ['5 min to Kemang Village Mall', 'Near various art galleries and restaurants'],
         images: [
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/1.webp`,
-          `${baseImageUrl}/1.+Bandung/2.+Dago/2.webp`,
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/3.webp`,
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/4.webp`,
+          `${h5}`,
+          `${h2}`,
+          `${h5}`,
+          `${h1}`,
         ],
       },
       {
@@ -768,10 +775,10 @@ export default function ProductCards() {
         maxGuests: 3,
         nearbyAttractions: ['2 min to Jakarta Stock Exchange', 'Near major corporate offices'],
         images: [
-          `${baseImageUrl}/1.+Bandung/2.+Dago/1.webp`,
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/2.webp`,
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/3.webp`,
-          `${baseImageUrl}/1.+Bandung/2.+Dago/4.webp`,
+          `${h1}`,
+          `${h4}`,
+          `${h4}`,
+          `${h4}`,
         ],
       },
       {
@@ -784,10 +791,10 @@ export default function ProductCards() {
         maxGuests: 4,
         nearbyAttractions: ['10 min to Times Square', 'Near Empire State Building'],
         images: [
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/1.webp`,
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/2.webp`,
-          `${baseImageUrl}/1.+Bandung/2.+Dago/3.webp`,
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/4.webp`,
+          `${h1}`,
+          `${h3}`,
+          `${h3}`,
+          `${h2}`,
         ],
       },
       {
@@ -800,10 +807,10 @@ export default function ProductCards() {
         maxGuests: 3,
         nearbyAttractions: ['5 min to Brooklyn Bridge Park', 'Near artisanal markets and cafes'],
         images: [
-          `${baseImageUrl}/1.+Bandung/2.+Dago/1.webp`,
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/2.webp`,
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/3.webp`,
-          `${baseImageUrl}/1.+Bandung/2.+Dago/4.webp`,
+          `${h1}`,
+          `${h4}`,
+          `${h4}`,
+          `${h4}`,
         ],
       },
       {
@@ -816,10 +823,10 @@ export default function ProductCards() {
         maxGuests: 2,
         nearbyAttractions: ['3 min to Shibuya Crossing', 'Near Yoyogi Park and Meiji Shrine'],
         images: [
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/1.webp`,
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/2.webp`,
-          `${baseImageUrl}/1.+Bandung/2.+Dago/3.webp`,
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/4.webp`,
+          `${h1}`,
+          `${h3}`,
+          `${h3}`,
+          `${h2}`,
         ],
       },
       {
@@ -832,10 +839,10 @@ export default function ProductCards() {
         maxGuests: 3,
         nearbyAttractions: ['5 min to Shinjuku Station', 'Near Tokyo Metropolitan Government Building'],
         images: [
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/1.webp`,
-          `${baseImageUrl}/1.+Bandung/2.+Dago/2.webp`,
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/3.webp`,
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/4.webp`,
+          `${h5}`,
+          `${h2}`,
+          `${h5}`,
+          `${h1}`,
         ],
       },
       {
@@ -848,10 +855,10 @@ export default function ProductCards() {
         maxGuests: 4,
         nearbyAttractions: ['5 min to COEX Mall', 'Near Bongeunsa Temple'],
         images: [
-          `${baseImageUrl}/1.+Bandung/2.+Dago/1.webp`,
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/2.webp`,
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/3.webp`,
-          `${baseImageUrl}/1.+Bandung/2.+Dago/4.webp`,
+          `${h1}`,
+          `${h4}`,
+          `${h4}`,
+          `${h4}`,
         ],
       },
       {
@@ -864,10 +871,10 @@ export default function ProductCards() {
         maxGuests: 2,
         nearbyAttractions: ['2 min to Hongik University Street', 'Near trendy cafes and indie music venues'],
         images: [
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/1.webp`,
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/2.webp`,
-          `${baseImageUrl}/1.+Bandung/2.+Dago/3.webp`,
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/4.webp`,
+          `${h1}`,
+          `${h3}`,
+          `${h3}`,
+          `${h2}`,
         ],
       },
       {
@@ -880,10 +887,10 @@ export default function ProductCards() {
         maxGuests: 3,
         nearbyAttractions: ['10 min to National Monument', 'Near Presidential Palace'],
         images: [
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/1.webp`,
-          `${baseImageUrl}/1.+Bandung/2.+Dago/2.webp`,
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/3.webp`,
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/4.webp`,
+          `${h5}`,
+          `${h2}`,
+          `${h5}`,
+          `${h1}`,
         ],
       },
       {
@@ -896,10 +903,10 @@ export default function ProductCards() {
         maxGuests: 4,
         nearbyAttractions: ['Walking distance to boutique shops', 'Near Washington Square Park'],
         images: [
-          `${baseImageUrl}/1.+Bandung/2.+Dago/1.webp`,
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/2.webp`,
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/3.webp`,
-          `${baseImageUrl}/1.+Bandung/2.+Dago/4.webp`,
+          `${h1}`,
+          `${h4}`,
+          `${h4}`,
+          `${h4}`,
         ],
       },
       {
@@ -912,10 +919,10 @@ export default function ProductCards() {
         maxGuests: 3,
         nearbyAttractions: ['5 min to Myeongdong Shopping Street', 'Near N Seoul Tower'],
         images: [
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/1.webp`,
-          `${baseImageUrl}/1.+Bandung/2.+Dago/2.webp`,
-          `${baseImageUrl}/1.+Bandung/3.+Pasteur/3.webp`,
-          `${baseImageUrl}/1.+Bandung/1.+Alun-Alun/4.webp`,
+          `${h5}`,
+          `${h2}`,
+          `${h5}`,
+          `${h1}`,
         ],
       },
     ];
