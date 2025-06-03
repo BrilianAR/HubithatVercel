@@ -18,7 +18,7 @@ import {
   Shield
 } from "lucide-react";
 
-import hubithat from "../assets/hubithat.png";
+import hubithat from "../assets/LOGO HUTBITHAT update.png";
 import app from "../assets/app-store.png";
 import google from "../assets/google-play.png";
 

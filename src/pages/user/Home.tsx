@@ -6,12 +6,11 @@ import image1 from "../../assets/a1.jpg";
 import image2 from "../../assets/a2.jpg";
 import image3 from "../../assets/8.jpg";
 import image4 from "../../assets/9.jpg";
-import svg1 from "../../assets/1.svg";
-import svg2 from "../../assets/2.svg";
-import svg3 from "../../assets/3.svg";
-import svg4 from "../../assets/4.svg";
-import svg5 from "../../assets/5.svg";
-import svg6 from "../../assets/6.svg";
+import svg1 from "../../assets/01.png";
+import svg2 from "../../assets/02.png";
+import svg3 from "../../assets/03.png";
+import svg4 from "../../assets/04.png";
+import svg5 from "../../assets/05.png";
 import image7 from "../../assets/a3.jpg";
 import map from "../../assets/map.png";
 import Riview from "../../components/ui/Review";
@@ -27,7 +26,7 @@ interface HubiThatHeroProps {
 }
 
 const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
-  const images = [svg1, svg2, svg3, svg4, svg5, svg6];
+  const images = [svg1, svg2, svg3, svg4, svg5];
   const numImages = images.length;
 
   const [interactiveImageIndex, setInteractiveImageIndex] = useState<number>(0);

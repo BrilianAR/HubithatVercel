@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { cn } from "../libs/utils";
-import hubithat from "../assets/hubithat.png"
+import hubithat from "../assets/LOGO HUTBITHAT update.png"
 import hubithatLogo from "../assets/hubithat-logo.png"
 
 import { Button } from "../components/LoginComponen/Button";
