@@ -13,14 +13,20 @@ const COLORS = {
 
 // Pre-computed card styles to avoid recalculations
 const CARD_STYLES = {
-  basics: {
+  shares: {
     background: `${COLORS.primary}20`,
     textColor: COLORS.primary,
     buttonBg: COLORS.primary,
     labelBg: COLORS.primary,
   },
+  basics: {
+    background: `${COLORS.primary}40`,
+    textColor: COLORS.primary,
+    buttonBg: COLORS.primary,
+    labelBg: COLORS.primary,
+  },
   classics: {
-    background: `${COLORS.secondary}30`,
+    background: `${COLORS.secondary}60`,
     textColor: COLORS.background,
     buttonBg: COLORS.secondary,
     labelBg: COLORS.secondary,
@@ -52,6 +58,11 @@ interface TierData {
 
 // Update TIERS_DATA with explicit typing
 const TIERS_DATA: TierData[] = [
+  {
+    type: 'shares',
+    averagePrice: '3jt',
+    description: 'Made for new comer city hustler'
+  },
   {
     type: 'basics',
     averagePrice: '5jt',
@@ -170,15 +181,23 @@ const PricingTiers = () => {
           <div className="w-full md:w-3/4">
             {/* Desktop View */}
             <div className="hidden md:flex flex-row">
-              {TIERS_DATA.map((tier) => (
-                <TierCard 
-                  key={tier.type}
-                  type={tier.type}
-                  averagePrice={tier.averagePrice} 
-                  description={tier.description}
-                  isInView={isInView}
-                />
-              ))}
+              <div 
+                className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+                style={{ 
+                  scrollbarWidth: 'none', 
+                  msOverflowStyle: 'none',
+                }}
+              >
+                {TIERS_DATA.map((tier) => (
+                  <TierCard 
+                    key={tier.type}
+                    type={tier.type}
+                    averagePrice={tier.averagePrice} 
+                    description={tier.description}
+                    isInView={isInView}
+                  />
+                ))}
+              </div>
             </div>
             
             {/* Mobile View */}
