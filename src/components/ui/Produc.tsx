@@ -1,14 +1,14 @@
 import { motion } from 'framer-motion'; // Import Framer Motion
-import image from '../../assets/11.jpg';
-import image2 from '../../assets/7.jpg';
-import image3 from '../../assets/6.jpg';
-import image4 from '../../assets/3.jpg';
+import image from '../../assets/12.png';
+import image2 from '../../assets/13.png';
+import image3 from '../../assets/14.png';
+import image4 from '../../assets/15.png';
 
 const LifestyleMatchSection = () => {
   const roomTypes = [
     {
       image: image,
-      title: "rooms with",
+      title: "       with",
       subtitle: "shared bath",
       borderColor: "border-amber-500"
     },

@@ -50,9 +50,9 @@ export default function ContactPage() {
                   </div>
                   <div className="ml-3 text-base text-gray-500">
                     <p className="font-medium text-gray-900">Corporate Headquarters</p>
-                    <p>InvestNext Tower</p>
-                    <p>123 Finance Street</p>
-                    <p>New York, NY 10001</p>
+                    <p>The Pennovation</p>
+                    <p>3401 Grays Ferry Avenue,</p>
+                    <p>Philadelphia, PA 19146</p>
                   </div>
                 </div>
                 
@@ -62,7 +62,7 @@ export default function ContactPage() {
                   </div>
                   <div className="ml-3 text-base text-gray-500">
                     <p className="font-medium text-gray-900">Phone</p>
-                    <p>+1 (555) 123-4567</p>
+                    <p>+6281226821047</p>
                   </div>
                 </div>
                 
@@ -72,7 +72,8 @@ export default function ContactPage() {
                   </div>
                   <div className="ml-3 text-base text-gray-500">
                     <p className="font-medium text-gray-900">Email</p>
-                    <p>partnerships@investnext.com</p>
+                    <p>rifin@hubithat.com</p>
+                    <p>alfyan@hubithat.com</p>
                   </div>
                 </div>
               </div>
@@ -86,42 +87,9 @@ export default function ContactPage() {
                       <MapPin className="h-5 w-5 text-[var(--bg-color)]" />
                     </div>
                     <div className="ml-3 text-sm text-gray-500">
-                      <p className="font-medium text-gray-900">London</p>
-                      <p>30 St Mary Axe</p>
-                      <p>London, EC3A 8BF</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0">
-                      <MapPin className="h-5 w-5 text-[var(--bg-color)]" />
-                    </div>
-                    <div className="ml-3 text-sm text-gray-500">
-                      <p className="font-medium text-gray-900">Singapore</p>
-                      <p>One Raffles Place</p>
-                      <p>Singapore, 048616</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0">
-                      <MapPin className="h-5 w-5 text-[var(--bg-color)]" />
-                    </div>
-                    <div className="ml-3 text-sm text-gray-500">
-                      <p className="font-medium text-gray-900">Dubai</p>
-                      <p>Emirates Towers</p>
-                      <p>Dubai, UAE</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0">
-                      <MapPin className="h-5 w-5 text-[var(--bg-color)]" />
-                    </div>
-                    <div className="ml-3 text-sm text-gray-500">
-                      <p className="font-medium text-gray-900">Hong Kong</p>
-                      <p>International Finance Centre</p>
-                      <p>Hong Kong</p>
+                      <p className="font-medium text-gray-900">The Pennovation</p>
+                      <p>3401 Grays Ferry Avenue,</p>
+                      <p>Philadelphia, PA 19146</p>
                     </div>
                   </div>
                 </div>
@@ -140,7 +108,7 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-6">Investment Inquiry</h2>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">Let’s Join Our Visionary Journey</h2>
                   
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div>

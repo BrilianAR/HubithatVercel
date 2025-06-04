@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { TrendingUp, Users, Building, ArrowRight, Home, Star, MapPin, Shield, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import img12 from '../../assets/12.png'; 
+import img16 from '../../assets/16.png';
+import img14 from '../../assets/14.png';
+import img17 from '../../assets/17.png';
 
 // Partnership Page Component
 export default function PartnershipPage() {
@@ -11,19 +15,19 @@ export default function PartnershipPage() {
   
   const images = [
     {
-      src: "https://bobobox-production-assets.s3.ap-southeast-1.amazonaws.com/assets/hotels/bobobox-alun-alun/main-pictures/phpfIiBoB",
+      src: img17,
       alt: "SkyBox exterior view showing modular units on a rooftop"
     },
     {
-      src: "https://bobobox-production-assets.s3.ap-southeast-1.amazonaws.com/assets/hotels/bobobox-alun-alun/main-pictures/phpfIiBoB",
+      src: img12,
       alt: "SkyBox interior showing modern design and city views"
     },
     {
-      src: "https://bobobox-production-assets.s3.ap-southeast-1.amazonaws.com/assets/hotels/bobobox-alun-alun/main-pictures/phpfIiBoB",
+      src: img14,
       alt: "SkyBox rooftop common area with guests enjoying the view"
     },
     {
-      src: "https://bobobox-production-assets.s3.ap-southeast-1.amazonaws.com/assets/hotels/bobobox-alun-alun/main-pictures/phpfIiBoB",
+      src: img16,
       alt: "SkyBox night view with illuminated units against the city skyline"
     }
   ];

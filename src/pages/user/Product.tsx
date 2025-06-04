@@ -700,7 +700,7 @@ export default function ProductCards() {
     return [
       {
         id: 1,
-        name: 'Hubithat Alun-Alun, Bandung',
+        name: 'Hubithat - Share at Sudirman',
         city: 'Bandung',
         country: 'Indonesia',
         description: 'Enjoy staying near the popular city square while overseeing the beautiful Bandung city lights.',
@@ -717,7 +717,7 @@ export default function ProductCards() {
       },
       {
         id: 2,
-        name: 'Hubithat Dago, Bandung',
+        name: 'Hubithat - Lux at Budahan HI',
         city: 'Bandung',
         country: 'Indonesia',
         description: "Stay in the heart of Bandung's upscale district with scenic mountain views and trendy cafes nearby.",
@@ -732,9 +732,10 @@ export default function ProductCards() {
           `${h5}`,
         ],
       },
+    
       {
         id: 3,
-        name: 'Hubithat Pasteur, Bandung',
+        name: 'Hubithat - Classic at SCBD',
         city: 'Bandung',
         country: 'Indonesia',
         description: "Conveniently located with easy access to Bandung's toll gate and transportation hub.",
@@ -749,8 +750,24 @@ export default function ProductCards() {
           `${h3}`,
         ],
       },
-      {
+       {
         id: 4,
+        name: 'Hubithat - Basic at Blok M',
+        city: 'Jakarta',
+        country: 'Indonesia',
+        description: "Basic, affordable stay in lively Blok M. 5 min to Kemang Village Mall, near art & dining.",
+        price: 550000,
+        maxGuests: 4,
+        nearbyAttractions: ['5 min to Kemang Village Mall', 'Near various art galleries and restaurants'],
+        images: [
+          `${h5}`,
+          `${h2}`,
+          `${h5}`,
+          `${h1}`,
+        ],
+      },
+      {
+        id: 5,
         name: 'Hubithat Kemang, Jakarta',
         city: 'Jakarta',
         country: 'Indonesia',
@@ -766,7 +783,7 @@ export default function ProductCards() {
         ],
       },
       {
-        id: 5,
+        id: 6,
         name: 'Hubithat Sudirman, Jakarta',
         city: 'Jakarta',
         country: 'Indonesia',
@@ -782,7 +799,7 @@ export default function ProductCards() {
         ],
       },
       {
-        id: 6,
+        id: 7,
         name: 'Hubithat Midtown, New York',
         city: 'New York',
         country: 'United States',
@@ -798,7 +815,7 @@ export default function ProductCards() {
         ],
       },
       {
-        id: 7,
+        id: 8,
         name: 'Hubithat Brooklyn, New York',
         city: 'New York',
         country: 'United States',
@@ -814,7 +831,7 @@ export default function ProductCards() {
         ],
       },
       {
-        id: 8,
+        id: 9,
         name: 'Hubithat Shibuya, Tokyo',
         city: 'Tokyo',
         country: 'Japan',
@@ -830,7 +847,7 @@ export default function ProductCards() {
         ],
       },
       {
-        id: 9,
+        id: 10,
         name: 'Hubithat Shinjuku, Tokyo',
         city: 'Tokyo',
         country: 'Japan',
@@ -846,7 +863,7 @@ export default function ProductCards() {
         ],
       },
       {
-        id: 10,
+        id: 11,
         name: 'Hubithat Gangnam, Seoul',
         city: 'Seoul',
         country: 'South Korea',
@@ -862,7 +879,7 @@ export default function ProductCards() {
         ],
       },
       {
-        id: 11,
+        id: 12,
         name: 'Hubithat Hongdae, Seoul',
         city: 'Seoul',
         country: 'South Korea',
@@ -878,7 +895,7 @@ export default function ProductCards() {
         ],
       },
       {
-        id: 12,
+        id: 13,
         name: 'Hubithat Menteng, Jakarta',
         city: 'Jakarta',
         country: 'Indonesia',
@@ -894,7 +911,7 @@ export default function ProductCards() {
         ],
       },
       {
-        id: 13,
+        id: 14,
         name: 'Hubithat SoHo, New York',
         city: 'New York',
         country: 'United States',
@@ -910,7 +927,7 @@ export default function ProductCards() {
         ],
       },
       {
-        id: 14,
+        id: 1,
         name: 'Hubithat Myeongdong, Seoul',
         city: 'Seoul',
         country: 'South Korea',
