@@ -12,10 +12,10 @@ import {
   Building2,
   Users,
   Phone,
-  MapPin,
+  // MapPin,
   Calendar,
-  FileText,
-  Shield
+  // FileText,
+  // Shield
 } from "lucide-react";
 
 import hubithat from "../assets/LOGO HUTBITHAT update.png";
