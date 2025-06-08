@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import ContactPage from "../../components/ui/ContactPage";
 import Button from "../../components/ui/Button";
-import BrandSection from "../../components/ui/BrandSelection";
+// import BrandSection from "../../components/ui/BrandSelection";
 import image1 from "../../assets/a1.jpg";
 import image2 from "../../assets/a2.jpg";
 import image3 from "../../assets/8.jpg";
@@ -148,7 +148,7 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
     <div>
       <HeroSection />
       <CheckHubithat />
-      <BrandSection />
+      {/* <BrandSection /> */}
 
       <div
         ref={fixTriggerRef}
@@ -158,7 +158,7 @@ const HubiThatHero: React.FC<HubiThatHeroProps> = () => {
           Discover a New Way to Stay in the City
         </h1>
         <span className="text-2xl md:text-[6rem] font-bold leading-tight md:leading-none text-center">
-          Cozy Stays on Roofgarden
+          Cozy Stays on the Roof Garden
         </span>
       </div>
 

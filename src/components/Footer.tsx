@@ -206,24 +206,19 @@ const FooterDemo = () => {
       }}
       socialLinks={[
         { name: "Twitter", Icon: Twitter, href: "https://x.com/hubitat" },
-        { name: "Instagram", Icon: Instagram, href: "https://instagram.com/hubitat" },
+        { name: "Instagram", Icon: Instagram, href: "https://www.instagram.com/hubithat/" },
         { name: "Facebook", Icon: Facebook, href: "https://facebook.com/hubitat" },
         { name: "Youtube", Icon: Youtube, href: "https://youtube.com/hubitat" }
       ]}
       columns={[
         { title: "Company", links: [
-            { name: "About Us", Icon: Building2, href: "/about" },
+            { name: "About Us", Icon: Building2, href: "/about-us" },
             { name: "Partnership", Icon: Users, href: "/partnership" },
             { name: "Contact", Icon: Phone, href: "/contact" }
           ] },
         { title: "Services", links: [
             { name: "Rooftop Stays", Icon: Blocks, href: "/product" },
-            { name: "Locations", Icon: MapPin, href: "#locations" },
             { name: "Booking", Icon: Calendar, href: "/booking" }
-        ] },
-        { title: "Legal", links: [
-            { name: "Privacy Policy", Icon: Shield, href: "/legal/privacy" },
-            { name: "Terms of Service", Icon: FileText, href: "/legal/terms" }
         ] }
       ]}
       copyright="Copyright 2025 HubiThat. All rights reserved."

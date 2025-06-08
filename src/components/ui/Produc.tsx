@@ -9,13 +9,13 @@ const LifestyleMatchSection = () => {
     {
       image: image,
       title: "       with",
-      subtitle: "shared bath",
+      subtitle: "shared bed",
       borderColor: "border-amber-500"
     },
     {
       image: image2,
       title: "rooms with",
-      subtitle: "private bath",
+      subtitle: "private bed",
       borderColor: "border-blue-400"
     },
     {

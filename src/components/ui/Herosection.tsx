@@ -124,7 +124,7 @@ const HeroSection = () => {
           {/* Heading */}
           <span className="block w-fit h-fit mx-auto md:mx-0">
             <p className=" text-[36px] md:text-[60px] font-bold text-white leading-[44px] md:leading-[70px] pb-5">
-              Elevate Your Stay, Literally Above.
+              Nature Elevated, Live Enhanced.
             </p>
           </span>
 
