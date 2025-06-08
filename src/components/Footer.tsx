@@ -21,6 +21,7 @@ import {
 import hubithat from "../assets/LOGO HUTBITHAT update.png";
 import app from "../assets/app-store.png";
 import google from "../assets/google-play.png";
+import { Link } from "react-router-dom";
 
 interface SocialLink {
   name: string;
@@ -31,7 +32,7 @@ interface SocialLink {
 interface FooterLink {
   name: string;
   Icon: React.FC<React.SVGProps<SVGSVGElement>>;
-  href?: string;
+  href: string; // Made required instead of optional
 }
 
 interface FooterColumn {
@@ -44,6 +45,7 @@ interface FooterProps extends React.HTMLAttributes<HTMLDivElement> {
     name: string;
     description: string;
     callToAction?: {
+      
       text: string;
       href: string;
     };
@@ -129,13 +131,13 @@ const Footer: React.FC<FooterProps> = ({
                 <ul className="space-y-3">
                   {links.map(({ name, Icon, href }) => (
                     <li key={name}>
-                      <a 
-                        href={href || "#"} 
+                      <Link 
+                        to={href}
                         className="flex items-center text-sm text-gray-700 hover:text-[var(--bg-color)] transition-colors"
                       >
                         <Icon className="mr-2 h-4 w-4" />
                         {name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
